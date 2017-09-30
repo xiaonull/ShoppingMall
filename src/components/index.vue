@@ -35,7 +35,8 @@ import Vue from 'vue';
 			return {
 				selected: 'homeTab'
 			}
-		}
+		},
+		
 	}
 
 </script>
