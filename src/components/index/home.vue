@@ -13,15 +13,14 @@
 				</mt-swipe-item>
 			</mt-swipe>
 		</div>
-		<div class="subNav">
-			<div class="nav_item"><img class="img" src=""><br><span class="title">特价</span></div>
-			<div class="nav_item"><img class="img" src=""><br><span class="title">原价</span></div>
-			<div class="nav_item"><img class="img" src=""><br><span class="title">---</span></div>
-			<div class="nav_item"><img class="img" src=""><br><span class="title">排行榜</span></div>
+		<div class="bargainPrice">
+			<div class="nav">
+				<span class="bar"></span>
+				<span class="title">特价商品</span>
+				<span class="more">更多...</span>
+			</div>
 		</div>
-		<div class="newProduct">
-			<p class="title"><span class="line"></span><span class="text">新品上市</span><span class="line"></span></p>
-		</div>
+		<div class="originalPrice"></div>
 	</section>
 </template>
 
@@ -48,46 +47,34 @@
 			text-align: center;
 		}
 
-		.subNav {
-			width: 100%;
-			height: 3rem;
-			display: flex;
-			text-align: center;
+		.bargainPrice {
+			margin-top: 0.3rem;
+			background-color: #fff;
 
-			.nav_item {
-				flex: 1;
+			.nav {
+				height: 1.5rem;
+				font-size: 0.7rem;
+				line-height: 0rem;
+				overflow: hidden;
 
-				.img {
-					width: 1.5rem;
+				.bar {
+					display: inline-block;
+					width: 4px;
 					height: 1.5rem;
-					margin-top: 0.2rem;
-					background-color: #D7D4D4;
-					border-radius: 50%;
+					background-color: #26a2ff;
 				}
 
 				.title {
-					font-size: 0.5rem;
-				}
-			}
-		}
-
-		.newProduct {
-			.title {
-				text-align: center;
-
-				.text {
-					display: inline-block;
-					width: 20%;
-					font-size: 0.5rem;
-				}
-
-				.line {
-					display: inline-block;
-					width: 40%;
-					height: 1px;
-					background-color: #C9C5C5;
 					position: relative;
-					top: -0.18rem;
+					top: -0.45rem;
+					margin-left: 0.2rem;
+				}
+
+				.more {
+					float: right;
+					position: relative;
+					top: 0.8rem;
+					margin-right: 0.5rem;
 				}
 			}
 		}

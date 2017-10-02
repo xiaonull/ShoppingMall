@@ -30,6 +30,7 @@
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		color: #2c3e50;
+		background-color: #EFEFEF;
 		font-size: 16px;
 		height: 100%;
 		width: 100%;
