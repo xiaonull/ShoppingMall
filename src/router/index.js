@@ -22,7 +22,7 @@ export default new Router({
 			path: 'home',
 			component: Home
 		}, {
-			path: 'classify',
+			path: 'classify/:type',
 			component: Classify
 		}, {
 			path: 'cart',

@@ -1,15 +1,15 @@
 <template>
 	<section class="index">
 		<router-view></router-view>
-		<mt-tabbar v-model="selected">
+		<mt-tabbar v-model="selected" :fixed="fixed">
 			<mt-tab-item id="homeTab" class="tab" @click.native="changePage('homeTab')">
 				<i class="fa fa-home fa-xx"></i>
 				首页
 			</mt-tab-item>
-			<!-- <mt-tab-item id="classifyTab" class="tab" @click.native="changePage('classifyTab')">
+			<mt-tab-item id="classifyTab" class="tab" @click.native="changePage('classifyTab')">
 				<i class="fa fa-cubes fa-xx"></i>
 				分类
-			</mt-tab-item> -->
+			</mt-tab-item>
 			<mt-tab-item id="cartTab" class="tab" @click.native="changePage('cartTab')">
 				<i class="fa fa-cart-plus fa-xx"></i>
 				购物车
@@ -33,7 +33,20 @@
 		name: 'index',
 		data() {
 			return {
-				selected: 'homeTab'
+				selected: '',
+				fixed: true
+			}
+		},
+		mounted() {
+			let path = this.$route.path;
+			if(path === '/index/home') {
+				this.selected = 'homeTab';
+			}else if(path.match('/index/classify')) {
+				this.selected = 'classifyTab';
+			}else if(path === '/index/cart') {
+				this.selected = 'cartTab';
+			}else if(path === '/index/me') {
+				this.selected = 'meTab';
 			}
 		},
 		methods: {
@@ -41,7 +54,7 @@
 				if(index === 'homeTab') {
 					this.$router.push('/index/home');
 				}else if(index === 'classifyTab') {
-					this.$router.push('/index/classify');
+					this.$router.push('/index/classify/bargainPrice');
 				}else if(index === 'cartTab') {
 					this.$router.push('/index/cart');
 				}else if(index === 'meTab') {
@@ -56,6 +69,8 @@
 
 <style scoped lang="less">
 	.index {
+		padding-bottom: 3rem;
+
 		.tab {
 			i.fa {
 				display: block;
