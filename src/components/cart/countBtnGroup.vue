@@ -1,8 +1,8 @@
 <template>
 	<section class="countBtnGroup">
-		<span class="count-btn">-</span>
+		<span class="count-btn" @click="minus">-</span>
 		<span class="count-btn counter">{{counter}}</span>
-		<span class="count-btn">+</span>
+		<span class="count-btn" @click="plus">+</span>
 	</section>
 </template>
 
@@ -19,7 +19,7 @@
 				this.$emit('plus');
 			},
 			minus() {
-				if(this.counter > 0) {
+				if(this.counter > 1) {
 					this.counter--;
 					this.$emit('minus');
 				}
@@ -31,6 +31,7 @@
 <style scoped lang="less">
 	.countBtnGroup {
 		display: inline-block;
+		font-size: 0;
 
 		.count-btn {
 			display: inline-block;
@@ -40,10 +41,17 @@
 			line-height: 20px;
 			border: 1px solid #D9D5D5;
 			color: #26a2ff;
+			font-size: 20px;
 		}
 
 		.counter {
 			color: #000;
+			border-left: none;
+			border-right: none;
+			width: 25px;
+			font-size: 14px;
+			position: relative;
+			top: -3px;
 		}
 	}
 </style>

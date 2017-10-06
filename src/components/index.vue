@@ -71,6 +71,21 @@
 	.index {
 		padding-bottom: 3rem;
 
+		.mint-tabbar {
+			height: 2.3rem;
+			background-color: #fff;
+			border-top: 1px solid #E6E2E2;
+
+			a {
+				color: #757171;
+			}
+
+			.mint-tab-item.is-selected {
+				background-color: #fff;
+				color: #26a2ff;
+			}
+		}
+
 		.tab {
 			i.fa {
 				display: block;
