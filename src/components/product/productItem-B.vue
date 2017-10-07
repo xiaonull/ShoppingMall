@@ -1,5 +1,5 @@
 <template>
-	<section class="productItemA">
+	<section class="productItemA" @click="toGoodsPage">
 		<div class="imgContainer">
 			<img class="img response_img" src="~@/assets/004.jpg">
 		</div>
@@ -16,6 +16,11 @@
 		data() {
 			return {
 
+			}
+		},
+		methods: {
+			toGoodsPage() {
+				this.$router.push('/goodsPage');
 			}
 		}
 	}

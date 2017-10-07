@@ -55,6 +55,7 @@
 	.home {
 		width: 100%;
 		height: 100%;
+		padding-bottom: 3rem;
 
 		.recommend {
 			height: 8rem;

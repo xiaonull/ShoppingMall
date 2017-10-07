@@ -6,6 +6,9 @@ import Home from '@/components/index/home.vue'
 import Classify from '@/components/index/classify.vue'
 import Cart from '@/components/index/cart.vue'
 import Me from '@/components/index/me.vue'
+import OrderList from '@/components/me/orderList.vue'
+import LuckDrawPage from '@/components/me/luckDrawPage.vue'
+import GoodsPage from '@/components/product/goodsPage.vue'
 
 Vue.use(Router)
 
@@ -14,7 +17,7 @@ export default new Router({
 		path: '/',
 		name: 'login',
 		component: Login
-	},{
+	},	{
 		path: '/index',
 		name: 'index',
 		component: Index,
@@ -31,5 +34,14 @@ export default new Router({
 			path: 'me',
 			component: Me
 		}]
+	}, {
+		path: '/orderList',
+		component: OrderList
+	}, {
+		path: '/luckDraw',
+		component: LuckDrawPage
+	}, {
+		path: '/goodsPage',
+		component: GoodsPage
 	}]
 })

@@ -7,7 +7,7 @@
 				首页
 			</mt-tab-item>
 			<mt-tab-item id="classifyTab" class="tab" @click.native="changePage('classifyTab')">
-				<i class="fa fa-cubes fa-xx"></i>
+				<i class="fa fa-th-large fa-1x"></i>
 				分类
 			</mt-tab-item>
 			<mt-tab-item id="cartTab" class="tab" @click.native="changePage('cartTab')">
@@ -69,7 +69,7 @@
 
 <style scoped lang="less">
 	.index {
-		padding-bottom: 3rem;
+		/* padding-bottom: 3rem; */
 
 		.mint-tabbar {
 			height: 2.3rem;
@@ -94,6 +94,11 @@
 
 			i.fa-xx {
 				font-size: 1rem;
+			}
+
+			i.fa-1x {
+				font-size: 0.9rem;
+				margin-top: 0.15rem;
 			}
 
 			i.fa-cubes, i.fa-user-o {

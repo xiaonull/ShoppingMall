@@ -13,6 +13,7 @@
     "axios": "^0.16.2",
     "element-ui": "^1.4.6",
     "mint-ui": "^2.2.9",
+    "v-distpicker": "^1.0.8",
     "vue": "^2.4.2",
     "vue-router": "^2.7.0",
     "vuex": "^2.4.1"
