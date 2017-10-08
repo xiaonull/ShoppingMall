@@ -9,6 +9,7 @@ import Me from '@/components/index/me.vue'
 import OrderList from '@/components/me/orderList.vue'
 import LuckDrawPage from '@/components/me/luckDrawPage.vue'
 import GoodsPage from '@/components/product/goodsPage.vue'
+import goodsListPage from '@/components/product/goodsListPage.vue'
 
 Vue.use(Router)
 
@@ -43,5 +44,9 @@ export default new Router({
 	}, {
 		path: '/goodsPage',
 		component: GoodsPage
+	}, {
+		path: '/goodsList/:goodsName',
+		component: goodsListPage,
+		props: true
 	}]
 })

@@ -2,14 +2,8 @@
 	<section class="home">
 		<div class="recommend">
 			<mt-swipe :auto="4000">
-				<mt-swipe-item>
-					<img class="img response_img" src="~@/assets/001.jpg">
-				</mt-swipe-item>
-				<mt-swipe-item>
-					<img class="img response_img" src="~@/assets/002.jpg">
-				</mt-swipe-item>
-				<mt-swipe-item>
-					<img class="response_img" src="~@/assets/003.jpg">
+				<mt-swipe-item v-for="url in carousel" :key="url">
+					<img class="img response_img" :src="url">
 				</mt-swipe-item>
 			</mt-swipe>
 		</div>
@@ -17,20 +11,20 @@
 			<div class="price-nav">
 				<span class="bar"></span>
 				<span class="title">特价商品</span>
-				<span class="more">更多...</span>
+				<span class="more" @click="toBargainPrice">更多...</span>
 			</div>
 			<div class="content">
-				<productListA></productListA>
+				<productListA :items="bargainPriceGoods"></productListA>
 			</div>
 		</div>
 		<div class="originalPrice">
 			<div class="price-nav">
 				<span class="bar"></span>
 				<span class="title">原价商品</span>
-				<span class="more">更多...</span>
+				<span class="more" @click="toOriginalPrice">更多...</span>
 			</div>
 			<div class="content">
-				<productListA></productListA>
+				<productListA :items="originalPriceGoods"></productListA>
 			</div>
 		</div>
 	</section>
@@ -46,6 +40,21 @@
 	export default {
 		components: {
 			productListA
+		},
+		data() {
+			return {
+				carousel: this.$store.state.home.carousel.imgUrls,
+				bargainPriceGoods: this.$store.state.home.bargainPriceGoods,
+				originalPriceGoods: this.$store.state.home.originalPriceGoods,
+			}
+		},
+		methods: {
+			toBargainPrice() {
+				this.$router.push('/index/classify/bargainPrice');
+			},
+			toOriginalPrice() {
+				this.$router.push('/index/classify/originalPrice');
+			}
 		}
 	}
 

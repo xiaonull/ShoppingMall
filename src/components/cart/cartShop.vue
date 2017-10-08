@@ -1,16 +1,14 @@
 <template>
 	<section class="cartShop">
 		<div class="top">
-			<cart-btn @click.native="selectAllInShop" :checked="false"></cart-btn>
-			<h1 class="shopName">xxx官方旗舰店</h1>
+			<cart-btn @click.native="selectAllInShop" :checked="shop.selectedAll"></cart-btn>
+			<h1 class="shopName">{{shop.shopName}}</h1>
 		</div>
 		<div class="main">
-			<cart-item></cart-item>
-			<cart-item></cart-item>
-			<cart-item></cart-item>
+			<cart-item v-for="goods in shop.goods" :key="goods.id" :item="goods"></cart-item>
 		</div>
 		<div class="bottom">
-			<p class="total">本店总计：￥<span class="money">0.00</span></p>
+			<p class="total">本店总计：￥<span class="money">{{shop.total.toFixed(2)}}</span></p>
 		</div>
 	</section>
 </template>
@@ -20,6 +18,7 @@
 	import CartItem from '@/components/cart/cartItem.vue';
 
 	export default {
+		props: ['shop'],
 		components: {
 			CartBtn,
 			CartItem

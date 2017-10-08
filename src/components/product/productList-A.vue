@@ -1,23 +1,8 @@
 <template>
 	<section class="productListA">
 		<el-row :gutter="3">
-			<el-col :xs="12" :sm="12" :md="8" :lg="8">
-				<productItemA :imgUrl="imgUrl" :name="name" :price="price"></productItemA>
-			</el-col>
-			<el-col :xs="12" :sm="12" :md="8" :lg="8">
-				<productItemA :imgUrl="imgUrl" :name="name" :price="price"></productItemA>
-			</el-col>
-			<el-col :xs="12" :sm="12" :md="8" :lg="8">
-				<productItemA :imgUrl="imgUrl" :name="name" :price="price"></productItemA>
-			</el-col>
-			<el-col :xs="12" :sm="12" :md="8" :lg="8">
-				<productItemA :imgUrl="imgUrl" :name="name" :price="price"></productItemA>
-			</el-col>
-			<el-col :xs="12" :sm="12" :md="8" :lg="8">
-				<productItemA :imgUrl="imgUrl" :name="name" :price="price"></productItemA>
-			</el-col>
-			<el-col :xs="12" :sm="12" :md="8" :lg="8">
-				<productItemA :imgUrl="imgUrl" :name="name" :price="price"></productItemA>
+			<el-col :xs="12" :sm="12" :md="8" :lg="8" v-for="item in items" :key="item.id">
+				<productItemA :imgUrl="item.imgUrl" :name="item.name" :price="item.price"></productItemA>
 			</el-col>
 		</el-row>
 	</section>
@@ -35,9 +20,6 @@
 		props: ['items'],
 		data() {
 			return {
-				imgUrl: '~@/assets/004.jpg',
-				name: 'testtesttesttesttesttesttesttesttesttesttesttest',
-				price: '￥100'
 			}
 		},
 		components: {

@@ -1,11 +1,12 @@
 <template>
+	<!-- 首页的产品展示 -->
 	<section class="productItemA">
 		<div class="imgContainer">
-			<img class="img response_img" src="~@/assets/004.jpg">
+			<img class="img response_img" :src="imgUrl">
 		</div>
 		<div class="info">
 			<div class="nameContainer"><span class="name">{{name}}</span></div>
-			<div class="priceContainer"><span class="price">{{price}}</span></div>
+			<div class="priceContainer"><span class="price">￥{{price}}</span></div>
 		</div>
 	</section>
 </template>

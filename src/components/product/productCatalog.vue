@@ -1,7 +1,7 @@
 <template>
 	<section class="productCatalog">
 		<ul class="list">
-			<li class="item" :class="{first: index === 0, active: index === currentCatalog}" v-for="(item, index) in testData" @click="changeCatalog(index)">
+			<li class="item" :class="{first: index === 0, active: index === currentCatalog}" v-for="(item, index) in items" :key="item.id" @click="changeCatalog(index)">
 				{{item.text+index}}
 			</li>
 		</ul>
@@ -10,30 +10,9 @@
 
 <script>
 	export default {
+		props: ['items'],
 		data() {
 			return {
-				testData: [{
-					text: '水果蔬菜',
-					id: 0
-				},{
-					text: '水果蔬菜',
-					id: 1
-				},{
-					text: '水果蔬菜',
-					id: 2
-				},{
-					text: '水果蔬菜',
-					id: 3
-				},{
-					text: '水果蔬菜',
-					id: 4
-				},{
-					text: '水果蔬菜',
-					id: 5
-				},{
-					text: '水果蔬菜',
-					id: 6
-				}],
 				currentCatalog: 0
 			}
 		},
@@ -83,11 +62,11 @@
 				content: '';
 				float: right;
 				display: inline-block;
-				width: 2px;
+				width: 5px;
 				height: 2rem;
 				background-color: #fff;
 				position: relative;
-				left: 2px;
+				left: 3px;
 			}
 		}
 	}

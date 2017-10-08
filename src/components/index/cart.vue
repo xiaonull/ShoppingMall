@@ -4,8 +4,7 @@
 			<mt-header fixed title="购物车"></mt-header>
 		</div>
 		<div class="main">
-			<cart-shop></cart-shop>
-			<cart-shop></cart-shop>
+			<cart-shop v-for="shop in shops" :key="shop.id" :shop="shop"></cart-shop>
 		</div>
 		<div class="footer">
 			<div class="left">
@@ -34,6 +33,16 @@
 		components: {
 			CartShop,
 			CartBtn
+		},
+		data() {
+			return {
+				// shops: this.$store.state.cart.shops
+			}
+		},
+		computed: {
+			shops() {
+				return this.$store.state.cart.shops;
+			}
 		},
 		methods: {
 			selectAllInShops() {

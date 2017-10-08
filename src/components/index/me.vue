@@ -8,11 +8,11 @@
 		</div>
 		<div class="main">
 			<ul class="list">
-				<li class="item">
+				<!-- <li class="item">
 					<i class="icon icon-collect"></i>
 					<span class="text">我的收藏</span>
 					<i class="fa fa-angle-right"></i>
-				</li>
+				</li> -->
 				<li class="item">
 					<i class="icon icon-address"></i>
 					<span class="text">收货地址</span>

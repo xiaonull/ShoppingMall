@@ -5,17 +5,17 @@
 		</div>
 		<div class="right">
 			<div class="subLeft">
-				<img class="img response_img" src="~@/assets/004.jpg">
+				<img class="img response_img" :src="item.imgUrl">
 			</div>
 			<div class="subRight">
-				<p class="name">2017夏季新款韩版蕾丝拼接荷叶袖露肩雪纺娃娃衫上衣女短袖雪...</p>
+				<p class="name">{{item.name}}</p>
 				<p class="info">
-					<span class="weight">重量：3.3kg</span>
-					<span class="color">颜色：标配版</span>
+					<span class="weight" v-if="item.infos[0] !== ''">{{item.infos[0]}}</span>
+					<span class="color" v-if="item.infos[1] !== ''">{{item.infos[1]}}</span>
 				</p>
 				<div class="bottom">
-					<span class="price">￥100.00</span>
-					<count-btn-group></count-btn-group>
+					<span class="price">￥{{item.price.toFixed(2)}}</span>
+					<count-btn-group :quantity="item.quantity"></count-btn-group>
 				</div>
 			</div>
 		</div>
@@ -27,7 +27,7 @@
 	import CountBtnGroup from '@/components/cart/countBtnGroup.vue';
 
 	export default {
-		props: ['itemData'],
+		props: ['item'],
 		components: {
 			CartBtn,
 			CountBtnGroup

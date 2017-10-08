@@ -8,9 +8,15 @@
 
 <script>
 	export default {
+		props: ['quantity'],
 		data() {
 			return {
 				counter: 1
+			}
+		},
+		mounted() {
+			if(this.quantity !== null && this.quantity !== undefined && this.quantity !== '') {
+				this.counter = this.quantity;
 			}
 		},
 		methods: {

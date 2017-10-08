@@ -14,10 +14,10 @@
 			</div>
 		</div>
 		<div class="classify-left">
-			<Product-Catalog></Product-Catalog>
+			<Product-Catalog :items="productCatalog"></Product-Catalog>
 		</div>
 		<div class="classify-right">
-			<productListB></productListB>
+			<productListB :items="goodsList"></productListB>
 		</div>
 	</section>
 </template>
@@ -36,7 +36,9 @@
 			return {
 				currentTitle: '',
 				currentType: '',
-				searchContent: ''
+				searchContent: '',
+				productCatalog: this.$store.state.classify.productCatalog,
+				goodsList: this.$store.state.classify.goodsList,
 			}
 		},
 		components: {

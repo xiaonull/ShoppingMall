@@ -2,32 +2,33 @@
 	<section class="goodsPage">
 		<div class="carousel">
 			<mt-swipe :auto="4000000">
-				<mt-swipe-item>
-					<img class="response_img" src="~@/assets/005.jpg">
-				</mt-swipe-item>
-				<mt-swipe-item>
-					<img class="response_img" src="~@/assets/005.jpg">
-				</mt-swipe-item>
-				<mt-swipe-item>
-					<img class="response_img" src="~@/assets/005.jpg">
+				<mt-swipe-item v-for="imgUrl in goods.carousel.imgUrls" :key="imgUrl">
+					<img class="response_img" :src="imgUrl">
 				</mt-swipe-item>
 			</mt-swipe>
 		</div>
 		<div class="main">
 			<div class="name">
-				天猫超市 可口可乐 碳酸饮料拉罐330ml*6连罐装 可口可乐
+				{{goods.name}}
 			</div>
-			<div class="price">
-				￥43.8
+			<div class="info">
+				<span class="stock">库存：{{goods.stock}}</span>
+				<span class="price">￥{{goods.price}}</span>
 			</div>
 			<span class="line"></span>
-			<div class="address card" @click="selectAddress">
-				<span>配送至：天河区</span>
+			<div class="address card">
+				<span>配送至：{{goods.address.area}}</span>
 				<i class="fa fa-angle-right"></i>
 			</div>
 			<div class="goodsOption card">
 				<span>产品参数</span>
 				<i class="fa fa-angle-right"></i>
+			</div>
+			<div class="quantity card">
+				<span>购买数量</span>
+				<div class="btnGroup">
+					<count-btn-group @plus="plus" @minus="minus"></count-btn-group>
+				</div>
 			</div>
 		</div>
 		<div class="popup">
@@ -38,7 +39,7 @@
 			</mt-popup>
 		</div>
 		<div class="footer">
-			<div class="home" @click="toClassify">
+			<div class="home" @click="toGoodsListPage">
 				<i class="fa fa-home"></i>
 				<br>
 				<span class="text">商 城</span>
@@ -46,9 +47,9 @@
 			<div class="cart">
 				<i class="fa fa-opencart"></i>
 				<br>
-				<span class="text">总价：<span class="price">￥12</span></span>
+				<span class="text">总价：<span class="price">￥{{goods.total.toFixed(2)}}</span></span>
 			</div>
-			<div class="addToCart">
+			<div class="addToCart" @click="addToCart">
 				<span class="text">加入购物车</span>
 			</div>
 		</div>
@@ -59,6 +60,7 @@
 	import Vue from 'vue';
 	import { Swipe, SwipeItem, Popup  } from 'mint-ui';
 	import VDistpicker from 'v-distpicker';
+	import CountBtnGroup from '@/components/cart/countBtnGroup.vue';
 	Vue.component(Swipe.name, Swipe);
 	Vue.component(SwipeItem.name, SwipeItem);
 	Vue.component(Popup.name, Popup);
@@ -67,18 +69,39 @@
 	export default {
 		data() {
 			return {
-				popupVisible: false
+				popupVisible: false,
+				goods: this.$store.state.goodsPage.goods,
+				counter: 1
 			}
 		},
+		components: {
+			CountBtnGroup
+		},
 		methods: {
-			toClassify() {
-				this.$router.push('/index/classify/bargainPrice')
+			toGoodsListPage() {
+				if(sessionStorage.itemsName && sessionStorage.itemsName !== '') {
+					this.$router.push('/goodsList/' + sessionStorage.itemsName );
+				}else {
+					this.$router.push('/goodsList/' + this.$store.state.goodsList.data.itemsName);
+				}
 			},
 			selectAddress() {
 				this.popupVisible = true;
 			},
 			onSelectedAddress(data) {
 				
+			},
+			plus() {
+				this.counter++;
+			},
+			minus() {
+				if(this.counter > 1) {
+					this.counter--;
+				}
+			},
+			addToCart() {
+				let subTotal = this.goods.price * this.counter;
+				this.$store.commit('setTotal', subTotal);
 			}
 		}
 	}
@@ -107,12 +130,22 @@
 				line-height: 1rem;
 			}
 
-			.price {
+			.info {
 				margin: 0.5rem;
-				font-size: 0.8rem;
-				color: #F72E2E;
 				margin-top: 0.3rem;
-				text-align: right;
+				overflow: hidden;
+
+				.stock {
+					float: left;
+					font-size: 0.6rem;
+					color: #5C5959;
+				}
+
+				.price {
+					float: right;
+					font-size: 0.8rem;
+					color: #F72E2E;
+				}
 			}
 
 			.line {
@@ -135,6 +168,20 @@
 					margin-top: -0.5rem;
 					font-size: 1rem;
 					color: #999;
+				}
+			}
+
+			.quantity {
+				overflow: hidden;
+
+				.btnGroup {
+					float: right;
+					height: 1.5rem;
+
+					section.countBtnGroup {
+						height: 22px;
+						margin-top: 0.3rem;
+					}
 				}
 			}
 		}
@@ -174,10 +221,13 @@
 				height: 100%;
 				float: left;
 				background-color: #fff;
+				overflow: hidden;
 
 				.text {
 					display: inline-block;
+					width: 4.5rem;
 					margin-top: 0.08rem;
+					white-space: nowrap;
 
 					.price {
 						color: #F49256;
