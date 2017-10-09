@@ -17,6 +17,12 @@
 				this.checked_ = this.checked;
 			}
 		},
+		updated() {
+			// alert(this.checked)
+			// if(this.checked === true || this.checked === false) {
+			// 	this.checked_ = this.checked;
+			// }
+		},
 		methods: {
 			change() {
 				this.checked_ = !this.checked_;

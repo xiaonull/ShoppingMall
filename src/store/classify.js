@@ -26,42 +26,42 @@ export default {
 		}],
 		goodsList: [{
 			id: 0,
-			imgUrl: '/static/img/004.1ea6ac2.jpg',
+			imgUrl: 'https://img.alicdn.com/imgextra/i3/725677994/TB2v828cYFlpuFjy0FgXXbRBVXa_!!725677994.jpg',
 			name: '新疆提子',
 			price: '120'
 		}, {
 			id: 0,
-			imgUrl: '/static/img/004.1ea6ac2.jpg',
+			imgUrl: 'https://img.alicdn.com/imgextra/i3/725677994/TB2v828cYFlpuFjy0FgXXbRBVXa_!!725677994.jpg',
 			name: 'testtesttesttesttesttesttesttesttesttesttesttest',
 			price: '100'
 		}, {
 			id: 0,
-			imgUrl: '/static/img/004.1ea6ac2.jpg',
+			imgUrl: 'https://img.alicdn.com/imgextra/i3/725677994/TB2v828cYFlpuFjy0FgXXbRBVXa_!!725677994.jpg',
 			name: 'testtesttesttesttesttesttesttesttesttesttesttest',
 			price: '100'
 		}, {
 			id: 0,
-			imgUrl: '/static/img/004.1ea6ac2.jpg',
+			imgUrl: 'https://img.alicdn.com/imgextra/i3/725677994/TB2v828cYFlpuFjy0FgXXbRBVXa_!!725677994.jpg',
 			name: 'testtesttesttesttesttesttesttesttesttesttesttest',
 			price: '100'
 		}, {
 			id: 0,
-			imgUrl: '/static/img/004.1ea6ac2.jpg',
+			imgUrl: 'https://img.alicdn.com/imgextra/i3/725677994/TB2v828cYFlpuFjy0FgXXbRBVXa_!!725677994.jpg',
 			name: 'testtesttesttesttesttesttesttesttesttesttesttest',
 			price: '100'
 		}, {
 			id: 0,
-			imgUrl: '/static/img/004.1ea6ac2.jpg',
+			imgUrl: 'https://img.alicdn.com/imgextra/i3/725677994/TB2v828cYFlpuFjy0FgXXbRBVXa_!!725677994.jpg',
 			name: 'testtesttesttesttesttesttesttesttesttesttesttest',
 			price: '100'
 		}, {
 			id: 0,
-			imgUrl: '/static/img/004.1ea6ac2.jpg',
+			imgUrl: 'https://img.alicdn.com/imgextra/i3/725677994/TB2v828cYFlpuFjy0FgXXbRBVXa_!!725677994.jpg',
 			name: 'testtesttesttesttesttesttesttesttesttesttesttest',
 			price: '100'
 		}, {
 			id: 0,
-			imgUrl: '/static/img/004.1ea6ac2.jpg',
+			imgUrl: 'https://img.alicdn.com/imgextra/i3/725677994/TB2v828cYFlpuFjy0FgXXbRBVXa_!!725677994.jpg',
 			name: 'testtesttesttesttesttesttesttesttesttesttesttest',
 			price: '100'
 		}]

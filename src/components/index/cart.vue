@@ -4,19 +4,19 @@
 			<mt-header fixed title="购物车"></mt-header>
 		</div>
 		<div class="main">
-			<cart-shop v-for="shop in shops" :key="shop.id" :shop="shop"></cart-shop>
+			<cart-shop v-for="shop in shops" :key="shop.id" :shop="shop" @refreshshop="refreshshop"></cart-shop>
 		</div>
 		<div class="footer">
 			<div class="left">
-				<cart-btn @click.native="selectAllInShops" :checked="false"></cart-btn>
-				<span class="selectAll">全选</span>
+				<!-- <cart-btn @change="changeAllSelectInShops" :checked="selectAll"></cart-btn>
+				<span class="selectAll">全选</span> -->
 			</div>
 			<div class="right">
 				结 算
 			</div>
 			<div class="footer-main">
-				<p class="total">总价：100.00</p>
-				<p class="derate">减免：3.00</p>
+				<p class="total">总价：{{allTotal.toFixed(2)}}</p>
+				<!-- <p class="derate">减免：3.00</p> -->
 			</div>
 		</div>
 	</section>
@@ -35,18 +35,36 @@
 			CartBtn
 		},
 		data() {
+			console.log(this.$store.state.cart.allTotal);
 			return {
-				// shops: this.$store.state.cart.shops
+				shops: this.$store.state.cart.shops,
+				// allTotal: this.$store.state.cart.allTotal
 			}
 		},
 		computed: {
-			shops() {
-				return this.$store.state.cart.shops;
+			// shops() {
+			// 	return this.$store.state.cart.shops;
+			// },
+			allTotal() {
+				return this.$store.state.cart.allTotal;
+			},
+			selectAll() {
+				console.log('1:' + this.$store.state.cart.selectAll);
+				return this.$store.state.cart.selectAll;
 			}
 		},
 		methods: {
-			selectAllInShops() {
-
+			changeAllSelectInShops() {
+				// console.log(this.selectAll);
+				this.refreshshop();
+				this.$store.commit('cart/changeAllSelectInShops');
+				console.log('2:' + this.selectAll);
+			},
+			refreshshop() {
+				this.shops = {};
+				setTimeout(() => {
+					this.shops = this.$store.state.cart.shops
+				}, 0);
 			}
 		}
 	}
@@ -110,7 +128,7 @@
 				margin-right: auto;
 
 				.total {
-					margin-top: 0.1rem;
+					margin-top: 0.5rem;
 					font-size: 0.6rem;
 					font-weight: 500;
 				}

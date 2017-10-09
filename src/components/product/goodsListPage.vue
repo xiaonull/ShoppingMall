@@ -30,7 +30,7 @@
 			}
 		},
 		mounted() {
-			this.$store.commit('setItemsName', this.goodsName);
+			this.$store.commit('goodsList/setItemsName', this.goodsName);
 		}
 	}
 </script>

@@ -101,7 +101,7 @@
 			},
 			addToCart() {
 				let subTotal = this.goods.price * this.counter;
-				this.$store.commit('setTotal', subTotal);
+				this.$store.commit('goodsPage/setTotal', subTotal);
 			}
 		}
 	}

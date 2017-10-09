@@ -4,7 +4,7 @@ export default {
 	state: {
 		goods: {
 			carousel : {
-				imgUrls:['/static/img/005.720238a.jpg', '/static/img/005.720238a.jpg', '/static/img/005.720238a.jpg']
+				imgUrls:['https://img.alicdn.com/imgextra/i3/725677994/TB2v828cYFlpuFjy0FgXXbRBVXa_!!725677994.jpg', 'https://img.alicdn.com/imgextra/i3/725677994/TB2v828cYFlpuFjy0FgXXbRBVXa_!!725677994.jpg', 'https://img.alicdn.com/imgextra/i3/725677994/TB2v828cYFlpuFjy0FgXXbRBVXa_!!725677994.jpg']
 			},
 			id: 0,
 			name: '天猫超市 可口可乐 碳酸饮料拉罐330ml*6连罐装 可口可乐 饮料',

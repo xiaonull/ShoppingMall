@@ -1,7 +1,7 @@
 <template>
 	<section class="cartItem">
 		<div class="left">
-			<cart-btn></cart-btn>
+			<cart-btn @change="change" :checked="item.selected"></cart-btn>
 		</div>
 		<div class="right">
 			<div class="subLeft">
@@ -15,7 +15,7 @@
 				</p>
 				<div class="bottom">
 					<span class="price">￥{{item.price.toFixed(2)}}</span>
-					<count-btn-group :quantity="item.quantity"></count-btn-group>
+					<count-btn-group :quantity="item.quantity" @plus="plus" @minus="minus"></count-btn-group>
 				</div>
 			</div>
 		</div>
@@ -27,10 +27,31 @@
 	import CountBtnGroup from '@/components/cart/countBtnGroup.vue';
 
 	export default {
-		props: ['item'],
+		props: ['item', 'shopId'],
 		components: {
 			CartBtn,
 			CountBtnGroup
+		},
+		methods: {
+			change() {
+				this.$emit('refreshshop');
+				this.$store.commit('cart/changeGoodsSelected', {
+					shopId: this.shopId,
+					goodsId: this.item.id
+				});
+			},
+			plus() {
+				this.$store.commit('cart/plus', {
+					shopId: this.shopId,
+					goodsId: this.item.id
+				});
+			},
+			minus() {
+				this.$store.commit('cart/minus', {
+					shopId: this.shopId,
+					goodsId: this.item.id
+				});
+			}
 		}
 	}
 </script>

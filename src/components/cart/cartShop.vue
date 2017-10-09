@@ -1,11 +1,11 @@
 <template>
 	<section class="cartShop">
 		<div class="top">
-			<cart-btn @click.native="selectAllInShop" :checked="shop.selectedAll"></cart-btn>
+		<cart-btn @change="changeAllSelectInShop" :checked="shop.selectedAll"></cart-btn>
 			<h1 class="shopName">{{shop.shopName}}</h1>
 		</div>
 		<div class="main">
-			<cart-item v-for="goods in shop.goods" :key="goods.id" :item="goods"></cart-item>
+		<cart-item v-for="goods in shop.goods" :key="goods.id" :item="goods" :shopId="shop.id" @refreshshop="refreshshop"></cart-item>
 		</div>
 		<div class="bottom">
 			<p class="total">本店总计：￥<span class="money">{{shop.total.toFixed(2)}}</span></p>
@@ -29,8 +29,14 @@
 			}
 		},
 		methods: {
-			selectAllInShop() {
-
+			changeAllSelectInShop() {
+				this.$emit('refreshshop');
+				this.$store.commit('cart/changeAllSelectInShop', {
+					shopId: this.shop.id
+				});
+			},
+			refreshshop() {
+				this.$emit('refreshshop');
 			}
 		}
 	}
