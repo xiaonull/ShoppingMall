@@ -14,34 +14,36 @@
 				</div>
 				<div class="uploadImg">
 					<el-upload
+					ref="uploadLicenseImageUrl"
 					class="avatar-uploader"
 					action="https://jsonplaceholder.typicode.com/posts/"
 					:show-file-list="false"
-					:on-success="handleAvatarSuccess"
-					:before-upload="beforeAvatarUpload">
-					<img v-if="imageUrl" :src="imageUrl" class="avatar">
+					:on-success="handleLicenseSuccess"
+					:before-upload="beforeLicenseUpload">
+					<img ref="licenseImage" v-if="licenseImageUrl" :src="licenseImageUrl" class="avatar">
 					<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 				</el-upload>
 			</div>
 		</div>
 		<div class="upload">
 			<div class="text">
-			请上传门店照片
+				请上传门店照片
 			</div>
 			<div class="uploadImg">
 				<el-upload
+				ref="uploadStoreImage"
 				class="avatar-uploader"
 				action="https://jsonplaceholder.typicode.com/posts/"
 				:show-file-list="false"
-				:on-success="handleAvatarSuccess"
-				:before-upload="beforeAvatarUpload">
-				<img v-if="imageUrl" :src="imageUrl" class="avatar">
+				:on-success="handleStoreSuccess"
+				:before-upload="beforeStoreUpload">
+				<img ref="storeImage" v-if="storeImageUrl" :src="storeImageUrl" class="avatar">
 				<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 			</el-upload>
 		</div>
 	</div>
 	<div class="submit">
-		<mt-button type="primary">注 册</mt-button>
+		<mt-button type="primary" @click="register">注 册</mt-button>
 	</div>
 </div>
 </section>
@@ -63,24 +65,38 @@
 				phone: '',
 				storeName: '',
 				address: '',
-				imageUrl: ''
+				licenseImageUrl: '',
+				storeImageUrl: '',
+				licenseImage_fd: null,
+				storeImage_fd: null
 			};
 		},
 		methods: {
-			handleAvatarSuccess(res, file) {
-				this.imageUrl = URL.createObjectURL(file.raw);
+			handleLicenseSuccess(res, file) {
+				this.licenseImageUrl = URL.createObjectURL(file.raw);
 			},
-			beforeAvatarUpload(file) {
-				const isJPG = file.type === 'image/jpeg';
-				const isLt2M = file.size / 1024 / 1024 < 2;
+			beforeLicenseUpload(file) {
+				console.log(file);
+				this.licenseImage_fd = new FormData();
+				this.licenseImage_fd.append('license_img', file, file.name);
 
-				if (!isJPG) {
-					this.$message.error('上传头像图片只能是 JPG 格式!');
-				}
-				if (!isLt2M) {
-					this.$message.error('上传头像图片大小不能超过 2MB!');
-				}
-				return isJPG && isLt2M;
+				// return false; // 返回false不会自动上传
+			},
+			handleStoreSuccess(res, file) {
+				this.storeImageUrl = URL.createObjectURL(file.raw);
+			},
+			beforeStoreUpload(file) {
+				this.storeImage_fd = new FormData();
+				this.storeImage_fd.append('store_img', file, file.name);
+
+				// return false; // 返回false不会自动上传
+			},
+			register() {
+				console.log(this.licenseImage_fd);
+				this.$store.dispatch('login/register', {
+					licenseImage_fd: this.licenseImage_fd,
+					storeImage_fd: this.storeImage_fd
+				});
 			}
 		}
 	}

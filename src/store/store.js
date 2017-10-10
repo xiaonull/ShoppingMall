@@ -1,16 +1,24 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import login from './login.js';
 import home from './home.js';
 import classify from './classify.js';
 import goodsList from './goodsList.js';
 import goodsPage from './goodsPage.js';
 import cart from './cart.js';
+import Option from './axiosOption.js';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
 	modules: {
+		login: {
+			namespaced: true,
+			state: login.state,
+			mutations: login.mutations,
+			actions: login.actions
+		},
 		home,
 		classify,
 		goodsList: {
