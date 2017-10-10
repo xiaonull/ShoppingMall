@@ -1,8 +1,8 @@
 <template>
 	<section class="productCatalog">
 		<ul class="list">
-			<li class="item" :class="{first: index === 0, active: index === currentCatalog}" v-for="(item, index) in items" :key="item.id" @click="changeCatalog(index)">
-				{{item.text+index}}
+			<li class="item" :class="{first: index === 0, active: index === currentCatalog}" v-for="(item, index) in items" :key="item.id" @click="changeCatalog(index, item.id)">
+				{{item.text}}
 			</li>
 		</ul>
 	</section>
@@ -17,8 +17,9 @@
 			}
 		},
 		methods: {
-			changeCatalog(index) {
+			changeCatalog(index, id) {
 				this.currentCatalog = index;
+				this.$emit('currentCatalog', id);
 			}
 		}
 	}

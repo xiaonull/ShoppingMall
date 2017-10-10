@@ -25,7 +25,12 @@ export default new Vuex.Store({
 			mutations: home.mutations,
 			actions: home.actions
 		},
-		classify,
+		classify: {
+			namespaced: true,
+			state: classify.state,
+			mutations: classify.mutations,
+			actions: classify.actions
+		},
 		goodsList: {
 			namespaced: true,
 			state: goodsList.state,

@@ -14,7 +14,7 @@
 			</div>
 		</div>
 		<div class="classify-left">
-			<Product-Catalog :items="productCatalog"></Product-Catalog>
+			<Product-Catalog :items="productCatalog" @currentCatalog="currentCatalog"></Product-Catalog>
 		</div>
 		<div class="classify-right">
 			<productListB :items="goodsList"></productListB>
@@ -37,8 +37,11 @@
 				currentTitle: '',
 				currentType: '',
 				searchContent: '',
-				productCatalog: this.$store.state.classify.productCatalog,
-				goodsList: this.$store.state.classify.goodsList,
+				currentCatalogId: 0,
+				productCatalog: [],
+				goodsList: []
+				// productCatalog: this.$store.state.classify.productCatalog,
+				// goodsList: this.$store.state.classify.goodsList,
 			}
 		},
 		components: {
@@ -50,10 +53,16 @@
 			if(path === '/index/classify/originalPrice') {
 				this.currentTitle = '原价商品';
 				this.currentType = 'originalPrice';
+
+				this.loadProduct('frontend/store/commodities/origin/category/0');
 			}else if(path === '/index/classify/bargainPrice') {
 				this.currentTitle = '特价商品';
 				this.currentType = 'bargainPrice';
+
+				this.loadProduct('frontend/store/commodities/bargain/category/0');
 			}
+
+			this.loadProductCatalog(0);
 		},
 		methods: {
 			changeType() {
@@ -61,11 +70,43 @@
 					this.currentTitle = '原价商品';
 					this.currentType = 'originalPrice';
 					this.$router.push('/index/classify/originalPrice');
+					this.loadProduct('frontend/store/commodities/origin/category/' + this.currentCatalogId);
 				}else {
 					this.currentTitle = '特价商品';
 					this.currentType = 'bargainPrice';
 					this.$router.push('/index/classify/bargainPrice');
+					this.loadProduct('frontend/store/commodities/bargain/category/' + this.currentCatalogId);
 				}
+			},
+			currentCatalog(id) {
+				this.currentCatalogId = id;
+				if(this.currentType === 'bargainPrice') {
+					this.loadProduct('frontend/store/commodities/bargain/category/' + id);
+				}else {
+					this.loadProduct('frontend/store/commodities/origin/category/' + id);
+				}
+			},
+			loadProductCatalog(id) {
+				let url = 'frontend/store/categories/parent/' + id;
+
+				this.$store.dispatch('classify/loadProductCatalog', url)
+				.then((data) => {
+					console.log(data);
+					this.productCatalog = data.productCatalog;
+				})
+				.catch(response => {
+
+				});		
+			},
+			loadProduct(url) {
+				this.$store.dispatch('classify/loadProduct', url)
+				.then((data) => {
+					console.log(data);
+					this.goodsList = data.goodsList;
+				})
+				.catch(response => {
+
+				});	
 			}
 		},
 		watch: {
