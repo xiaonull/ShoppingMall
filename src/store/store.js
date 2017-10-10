@@ -19,7 +19,12 @@ export default new Vuex.Store({
 			mutations: login.mutations,
 			actions: login.actions
 		},
-		home,
+		home: {
+			namespaced: true,
+			state: home.state,
+			mutations: home.mutations,
+			actions: home.actions
+		},
 		classify,
 		goodsList: {
 			namespaced: true,
@@ -42,3 +47,43 @@ export default new Vuex.Store({
 	}
 })
 
+window.myAjax = function(option) {
+	let domainName = 'http://yuandianzixun.com/';
+
+	$.ajax({
+		url: domainName + option.url,
+		type: option.type || 'GET',
+		data: option.data,
+		dataType: option.dataType,
+		contentType: option.contentType,
+		processData: option.processData,
+		cache: option.cache,
+		success: function(result, status, xhr) {
+			option.success(result, status, xhr);  	
+		},
+		beforeSend: function(xhr) {
+			if(option.beforeSend) {
+				option.beforeSend(xhr);
+			}
+		},
+		complete : function(xhr){
+			if(option.complete) {
+				option.complete(xhr);
+			}
+		},
+		error: function() {
+
+		}
+	});
+};
+
+window.getToken = function(callback) {
+	let option = {
+		url: 'csrftoken/get',
+		type: 'GET',
+		success(result, status, xhr) {
+			callback(result, status, xhr);
+		}
+	};
+	myAjax(option);
+};

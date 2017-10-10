@@ -2,8 +2,8 @@
 	<section class="home">
 		<div class="recommend">
 			<mt-swipe :auto="4000">
-				<mt-swipe-item v-for="url in carousel" :key="url">
-					<img class="img response_img" :src="url">
+				<mt-swipe-item v-for="img in carousel" :key="img.commodity_id">
+					<img class="img response_img" :src="img.img">
 				</mt-swipe-item>
 			</mt-swipe>
 		</div>
@@ -55,6 +55,21 @@
 			toOriginalPrice() {
 				this.$router.push('/index/classify/originalPrice');
 			}
+		},
+		mounted() {
+			this.$store.dispatch('home/getData')
+			.then((data) => {
+				console.log(data);
+				this.carousel = [];
+				this.carousel= data.carrousel;
+				this.bargainPriceGoods = [];
+				this.bargainPriceGoods = data.bargainPriceGoods;
+				this.originalPriceGoods = [];
+				this.originalPriceGoods = data.originalPriceGoods;
+			})
+			.catch(response => {
+
+			});		
 		}
 	}
 

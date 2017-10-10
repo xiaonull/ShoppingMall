@@ -51,7 +51,7 @@
 
 <script>
 	import Vue from 'vue';
-	import { Field } from 'mint-ui';
+	import { Field, MessageBox } from 'mint-ui';
 	import { Upload, Button } from 'element-ui'
 	Vue.component(Field.name, Field);
 	Vue.use(Upload);
@@ -68,17 +68,29 @@
 				licenseImageUrl: '',
 				storeImageUrl: '',
 				licenseImage_fd: null,
-				storeImage_fd: null
+				storeImage_fd: null,
+				latitude: 12,
+				longitude: 232,
+				formData: new FormData(),
+				is_login: this.$store.state.login.is_login.key
 			};
 		},
+		// watch: {
+		// 	is_login: function(val, oldVal) {
+		// 		console.log('is_login' + val);
+		// 		if(val === true) {
+		// 			this.$router.push('/index/home');
+		// 		}
+		// 	}
+		// },
 		methods: {
 			handleLicenseSuccess(res, file) {
 				this.licenseImageUrl = URL.createObjectURL(file.raw);
 			},
 			beforeLicenseUpload(file) {
-				console.log(file);
-				this.licenseImage_fd = new FormData();
-				this.licenseImage_fd.append('license_img', file, file.name);
+				// console.log(file);
+				this.licenseImage_fd = true;
+				this.formData.append('license_img', file, file.name);
 
 				// return false; // 返回false不会自动上传
 			},
@@ -86,17 +98,35 @@
 				this.storeImageUrl = URL.createObjectURL(file.raw);
 			},
 			beforeStoreUpload(file) {
-				this.storeImage_fd = new FormData();
-				this.storeImage_fd.append('store_img', file, file.name);
+				this.storeImage_fd = true;
+				this.formData.append('store_img', file, file.name);
 
 				// return false; // 返回false不会自动上传
 			},
 			register() {
-				console.log(this.licenseImage_fd);
-				this.$store.dispatch('login/register', {
-					licenseImage_fd: this.licenseImage_fd,
-					storeImage_fd: this.storeImage_fd
-				});
+				// console.log(this.licenseImage_fd);
+				if(this.userName !== '' && this.phone !== '' && this.storeName !== '' && this.address !== '' && this.licenseImage_fd !== null && this.storeImage_fd !== null) {
+					this.formData.append('identity', this.userName);
+					this.formData.append('phone', this.phone);
+					this.formData.append('name', this.storeName);
+					this.formData.append('address', this.address);
+					this.formData.append('latitude', this.latitude);
+					this.formData.append('longitude', this.longitude);
+					getToken((result, status, xhr) => {
+						this.formData.append('_token', result.data._token);		
+						this.$store.dispatch('login/register', this.formData)
+						.then((response) => {
+							setTimeout(() => {
+								this.$router.push('/index/home');
+							}, 3000);
+						})
+						.catch(response => {
+
+						});			
+					});
+				}else {
+					MessageBox('提示', '请填写完整信息');
+				}
 			}
 		}
 	}
