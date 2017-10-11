@@ -54,7 +54,7 @@ export default new Vuex.Store({
 
 window.myAjax = function(option) {
 	let domainName = 'http://yuandianzixun.com/';
-	// return;
+	return;
 
 	$.ajax({
 		url: domainName + option.url,

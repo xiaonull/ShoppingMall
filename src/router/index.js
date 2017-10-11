@@ -10,6 +10,7 @@ import OrderList from '@/components/me/orderList.vue'
 import LuckDrawPage from '@/components/me/luckDrawPage.vue'
 import GoodsPage from '@/components/product/goodsPage.vue'
 import goodsListPage from '@/components/product/goodsListPage.vue'
+import Balance from '@/components/cart/balance.vue'
 
 Vue.use(Router)
 
@@ -48,5 +49,8 @@ export default new Router({
 		path: '/goodsList/:goodsName',
 		component: goodsListPage,
 		props: true
+	}, {
+		path: '/balance',
+		component: Balance
 	}]
 })
