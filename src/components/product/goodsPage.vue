@@ -12,16 +12,20 @@
 				{{goods.name}}
 			</div>
 			<div class="info">
-				<span class="stock">库存：{{goods.stock}}</span>
-				<span class="price">￥{{goods.price}}</span>
+				<span class="stock">库存：{{currentSKU.stock}}</span>
+				<span class="price">￥{{currentSKU.current_price}}</span>
 			</div>
 			<span class="line"></span>
 			<div class="address card">
 				<span>配送至：{{goods.address.area}}</span>
 				<i class="fa fa-angle-right"></i>
 			</div>
-			<div class="goodsOption card">
-				<span>产品参数</span>
+			<div class="goodsOption card" @click="selectGoodsOptions">
+				<span>产品参数：{{currentSKU.specification}}</span>
+				<i class="fa fa-angle-right"></i>
+			</div>
+			<div class="goodsDetail card" @click="openGoodsDetail">
+				<span>产品详情</span>
 				<i class="fa fa-angle-right"></i>
 			</div>
 			<div class="quantity card">
@@ -33,8 +37,22 @@
 		</div>
 		<div class="popup">
 			<mt-popup v-model="popupVisible" position="bottom">
-				<div class="addressPage">
-					<v-distpicker type="mobile" @selected="onSelectedAddress"></v-distpicker>
+				<div class="container">
+					<div class="goodsOption_popup">
+						<div class="optionContainer" v-for="sku in skus" :key="sku.sku_id">
+							<div class="option" :class="{active: sku.sku_id === currentSKU.sku_id}" @click="changeCurrentSKU(sku)">
+								<span v-for="(info, index) in sku.specification_arr" :key="index">{{info.key}}<span v-if="index !== sku.specification_arr.length-1">+</span><span v-else>:</span></span>
+								<span v-for="(info, index) in sku.specification_arr" :key="index">{{info.value}}<span v-if="index !== sku.specification_arr.length-1">、</span></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</mt-popup>
+		</div>
+		<div class="popup">
+			<mt-popup v-model="popupVisible2" position="right">
+				<div class="container" v-html="goods.introduction">
+					<!-- {{{goods.introduction}}} -->
 				</div>
 			</mt-popup>
 		</div>
@@ -59,23 +77,39 @@
 <script>
 	import Vue from 'vue';
 	import { Swipe, SwipeItem, Popup  } from 'mint-ui';
-	import VDistpicker from 'v-distpicker';
+	// import VDistpicker from 'v-distpicker';
 	import CountBtnGroup from '@/components/cart/countBtnGroup.vue';
 	Vue.component(Swipe.name, Swipe);
 	Vue.component(SwipeItem.name, SwipeItem);
 	Vue.component(Popup.name, Popup);
-	Vue.component('v-distpicker', VDistpicker);
+	// Vue.component('v-distpicker', VDistpicker);
 	
 	export default {
 		data() {
 			return {
 				popupVisible: false,
+				popupVisible2: false,
 				goods: this.$store.state.goodsPage.goods,
+				skus: this.$store.state.goodsPage.skus,
+				currentSKU: {},
 				counter: 1
 			}
 		},
 		components: {
 			CountBtnGroup
+		},
+		mounted() {
+			// let goodsId = this.$route.params.goodsId;
+			// console.log('goodsId:' + goodsId);
+			// this.$store.dispatch('goodsPage/setGoodsPage', goodsId)
+			// .then((data) => {
+			// 	this.currentSKU = this.skus[0];
+			// 	console.log('ok');
+			// })
+			// .catch(response => {
+
+			// });	
+			this.currentSKU = this.skus[0];
 		},
 		methods: {
 			toGoodsListPage() {
@@ -85,8 +119,11 @@
 					this.$router.push('/goodsList/' + this.$store.state.goodsList.data.itemsName);
 				}
 			},
-			selectAddress() {
+			selectGoodsOptions() {
 				this.popupVisible = true;
+			},
+			openGoodsDetail() {
+				this.popupVisible2 = true;
 			},
 			onSelectedAddress(data) {
 				
@@ -100,8 +137,22 @@
 				}
 			},
 			addToCart() {
-				let subTotal = this.goods.price * this.counter;
-				this.$store.commit('goodsPage/setTotal', subTotal);
+				this.$store.dispatch('goodsPage/addToCart', {id: this.currentSKU.sku_id, number: this.counter})
+				.then((data) => {
+					consele.log(data);
+					if(data === 0) {
+						return;
+					}
+					consele.log(1);
+					let subTotal = this.goods.price * this.counter;
+					this.$store.commit('goodsPage/setTotal', subTotal);
+				})
+				.catch(response => {
+
+				});	
+			},
+			changeCurrentSKU(sku) {
+				this.currentSKU = sku;
 			}
 		}
 	}
@@ -248,15 +299,51 @@
 		}
 		
 		.popup {
+			width: 100%;
+
 			.mint-popup {
 				width: 100%;
 				height: 15rem;
 				overflow-y: scroll;
 
-				.address-header {
-					position: fixed;
+				.container {
+					position: relative;
+
+					.goodsOption_popup {
+						position: absolute;
+						width: 100%;
+						min-height: 15rem;
+						background-color: #fff;
+						overflow-y: scroll;
+						text-align: center;
+						
+						.optionContainer {
+							display: inline-block;
+							float: left;
+							width: 50%;
+							height: 1.5rem;
+							line-height: 1.5rem;
+							margin-top: 0.5rem;
+							text-align: center;
+
+							.option {
+								display: inline-block;
+								width: 90%;
+								font-size: 0.5rem;
+								background-color: #9C9898;
+								color: #fff;
+								border-radius: 1rem;
+							}
+
+							.active {
+								background-color: #F17725;
+							}
+						}
+					}
 				}
 			}
+			
+			
 		}
 	}
 </style>

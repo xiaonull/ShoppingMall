@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export default {
 	state: {
+		currentType: '',
 		productCatalog: [{
 			text: '水果蔬菜11',
 			id: 0
@@ -15,7 +16,9 @@ export default {
 	},
 
 	mutations: {
-		
+		setCurrentType(state, currentType) {
+			state.currentType = currentType;
+		}
 	},
 
 	actions: {

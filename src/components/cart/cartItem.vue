@@ -14,7 +14,7 @@
 					<span class="color" v-if="item.infos[1] !== ''">{{item.infos[1]}}</span>
 				</p>
 				<div class="bottom">
-					<span class="price">￥{{item.price.toFixed(2)}}</span>
+					<span class="price">￥{{item.current_price.toFixed(2)}}</span>
 					<count-btn-group :quantity="item.quantity" @plus="plus" @minus="minus"></count-btn-group>
 				</div>
 			</div>

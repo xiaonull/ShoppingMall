@@ -26,12 +26,23 @@
 		},
 		data() {
 			return {
-				items: this.$store.state.goodsList.data.items
+				// items: this.$store.state.goodsList.data.items
+			}
+		},
+		computed: {
+			items() {
+				return this.$store.state.goodsList.data.items;
 			}
 		},
 		mounted() {
 			this.$store.commit('goodsList/setItemsName', this.goodsName);
-		}
+			// console.log('mounted: ' + this.items);
+		},
+		// watch: {
+		// 	items: function(val) {
+		// 		console.log('watch: ' + val);
+		// 	}
+		// }
 	}
 </script>
 

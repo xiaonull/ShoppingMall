@@ -42,7 +42,7 @@ export default new Router({
 		path: '/luckDraw',
 		component: LuckDrawPage
 	}, {
-		path: '/goodsPage',
+		path: '/goodsPage/:goodsId',
 		component: GoodsPage
 	}, {
 		path: '/goodsList/:goodsName',

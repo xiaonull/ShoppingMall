@@ -1,11 +1,12 @@
 <template>
 	<section class="cartShop">
 		<div class="top">
-		<cart-btn @change="changeAllSelectInShop" :checked="shop.selectedAll"></cart-btn>
+			<cart-btn @change="changeAllSelectInShop" :checked="shop.selectedAll"></cart-btn>
 			<h1 class="shopName">{{shop.shopName}}</h1>
+			<div class="deleteBtn"></div>
 		</div>
 		<div class="main">
-		<cart-item v-for="goods in shop.goods" :key="goods.id" :item="goods" :shopId="shop.id" @refreshshop="refreshshop"></cart-item>
+			<cart-item v-for="goods in shop.goods" :key="goods.id" :item="goods" :shopId="shop.id" @refreshshop="refreshshop"></cart-item>
 		</div>
 		<div class="bottom">
 			<p class="total">本店总计：￥<span class="money">{{shop.total.toFixed(2)}}</span></p>
@@ -61,6 +62,14 @@
 				margin-left: 0.5rem;
 				font-size: 0.6rem;
 				font-weight: 400;
+			}
+
+			.deleteBtn {
+				float: right;
+				display: inline-block;
+				width: 1.5rem;
+				height: 0.8rem;
+				
 			}
 		}
 

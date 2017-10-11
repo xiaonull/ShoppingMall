@@ -33,7 +33,7 @@
 					<span class="text">门店信息</span>
 					<i class="fa fa-angle-right"></i>
 				</li>
-				<li class="item">
+				<li class="item" @click="logout">
 					<i class="icon icon-logout"></i>
 					<span class="text">注销登录</span>
 					<i class="fa fa-angle-right"></i>
@@ -55,6 +55,9 @@
 		methods: {
 			toLuckDrawPage() {
 				this.$router.push('/luckDraw');
+			},
+			logout() {
+				window.location.assign('/index.html#/');
 			}
 		}
 	}

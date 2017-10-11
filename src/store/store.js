@@ -54,6 +54,7 @@ export default new Vuex.Store({
 
 window.myAjax = function(option) {
 	let domainName = 'http://yuandianzixun.com/';
+	// return;
 
 	$.ajax({
 		url: domainName + option.url,
@@ -64,6 +65,10 @@ window.myAjax = function(option) {
 		processData: option.processData,
 		cache: option.cache,
 		success: function(result, status, xhr) {
+			if(result.status_code === 5) {
+				window.location.assign('/index.html#/');
+			}
+
 			option.success(result, status, xhr);  	
 		},
 		beforeSend: function(xhr) {
@@ -72,6 +77,11 @@ window.myAjax = function(option) {
 			}
 		},
 		complete : function(xhr){
+			var url = xhr.getResponseHeader('Redirect-Url');
+			if(url) {
+				window.location = url;
+			}
+
 			if(option.complete) {
 				option.complete(xhr);
 			}

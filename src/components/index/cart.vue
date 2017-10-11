@@ -11,7 +11,7 @@
 				<!-- <cart-btn @change="changeAllSelectInShops" :checked="selectAll"></cart-btn>
 				<span class="selectAll">全选</span> -->
 			</div>
-			<div class="right">
+			<div class="right" @click="balance">
 				结 算
 			</div>
 			<div class="footer-main">
@@ -19,15 +19,30 @@
 				<!-- <p class="derate">减免：3.00</p> -->
 			</div>
 		</div>
-	</section>
+		<div class="popup">
+			<mt-popup v-model="popupVisible" position="bottom">
+				<div class="container">
+					<div class="subContainer">
+						<mt-datetime-picker ref="picker" type="datetime" v-model="pickerValue">
+					</mt-datetime-picker>
+				<div class="selectDate" @click="selectDate">
+					选择时间
+				</div>
+			</div>
+		</div>
+	</mt-popup>
+</div>
+</section>
 </template>
 
 <script>
 	import Vue from 'vue';
-	import { Header } from 'mint-ui';
+	import { Header, Popup, DatetimePicker } from 'mint-ui';
 	import CartShop from '@/components/cart/cartShop.vue';
 	import CartBtn from '@/components/cart/cartBtn.vue';
 	Vue.component(Header.name, Header);
+	Vue.component(Popup.name, Popup);
+	Vue.component(DatetimePicker.name, DatetimePicker);
 
 	export default {
 		components: {
@@ -37,6 +52,8 @@
 		data() {
 			console.log(this.$store.state.cart.allTotal);
 			return {
+				popupVisible: false,
+				pickerValue: '',
 				shops: this.$store.state.cart.shops,
 				// allTotal: this.$store.state.cart.allTotal
 			}
@@ -53,6 +70,16 @@
 				return this.$store.state.cart.selectAll;
 			}
 		},
+		mounted() {
+			this.$store.dispatch('cart/setCartData')
+			.then((data) => {
+				console.log('ok: ' + data);
+				this.shops = data.shops;
+			})
+			.catch(response => {
+
+			});	
+		},
 		methods: {
 			changeAllSelectInShops() {
 				// console.log(this.selectAll);
@@ -65,6 +92,13 @@
 				setTimeout(() => {
 					this.shops = this.$store.state.cart.shops
 				}, 0);
+			},
+			balance() {
+				// this.popupVisible = true;
+				// this.$refs.picker.open();
+			},
+			selectDate() {
+				// this.$refs.picker.open();
 			}
 		}
 	}
@@ -139,6 +173,34 @@
 				}
 			}
 
+		}
+
+		.popup {
+			width: 100%;
+			height: 15rem;
+
+			.mint-popup {
+				width: 100%;
+			}
+			
+			.container {
+				width: 100%;
+				height: 15rem;
+				position: relative;
+
+				.subContainer {
+					position: absolute;
+					width: 100%;
+					height: 15rem;
+					background-color: #fff;
+
+					.selectDate {
+						width: 2rem;
+						height: 2rem;
+					}
+				}
+			}
+			
 		}
 	}
 </style>

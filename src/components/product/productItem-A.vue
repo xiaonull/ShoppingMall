@@ -1,6 +1,6 @@
 <template>
 	<!-- 首页的产品展示 -->
-	<section class="productItemA">
+	<section class="productItemA" @click="toGoodsPage">
 		<div class="imgContainer">
 			<img class="img response_img" :src="imgUrl">
 		</div>
@@ -13,10 +13,22 @@
 
 <script>
 	export default {
-		props: ['imgUrl', 'name', 'price'],
+		props: ['imgUrl', 'name', 'price', 'id'],
 		data() {
 			return {
 
+			}
+		},
+		methods: {
+			toGoodsPage() {
+				this.$store.dispatch('goodsPage/setGoodsPage', this.id)
+				.then((data) => {
+					this.$router.push('/goodsPage/' + this.id);
+				})
+				.catch(response => {
+
+				});	
+				// this.$router.push('/goodsPage/' + this.item.id);
 			}
 		}
 	}

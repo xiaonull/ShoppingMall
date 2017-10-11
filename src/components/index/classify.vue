@@ -53,14 +53,15 @@
 			if(path === '/index/classify/originalPrice') {
 				this.currentTitle = '原价商品';
 				this.currentType = 'originalPrice';
-
-				this.loadProduct('frontend/store/commodities/origin/category/0');
+				
+				// this.loadProduct('frontend/store/commodities/origin/category/0');
 			}else if(path === '/index/classify/bargainPrice') {
 				this.currentTitle = '特价商品';
 				this.currentType = 'bargainPrice';
 
-				this.loadProduct('frontend/store/commodities/bargain/category/0');
+				// this.loadProduct('frontend/store/commodities/bargain/category/0');
 			}
+			this.$store.commit('classify/setCurrentType', this.currentType);
 
 			this.loadProductCatalog(0);
 		},
@@ -70,21 +71,27 @@
 					this.currentTitle = '原价商品';
 					this.currentType = 'originalPrice';
 					this.$router.push('/index/classify/originalPrice');
-					this.loadProduct('frontend/store/commodities/origin/category/' + this.currentCatalogId);
+					// 原价和特价的商品分类是一样的
+					// this.loadProduct('frontend/store/commodities/origin/category/' + this.currentCatalogId);
 				}else {
 					this.currentTitle = '特价商品';
 					this.currentType = 'bargainPrice';
 					this.$router.push('/index/classify/bargainPrice');
-					this.loadProduct('frontend/store/commodities/bargain/category/' + this.currentCatalogId);
+					//原价和特价的商品分类是一样的
+					// this.loadProduct('frontend/store/commodities/bargain/category/' + this.currentCatalogId);
 				}
+				this.$store.commit('classify/setCurrentType', this.currentType);
 			},
 			currentCatalog(id) {
 				this.currentCatalogId = id;
-				if(this.currentType === 'bargainPrice') {
-					this.loadProduct('frontend/store/commodities/bargain/category/' + id);
-				}else {
-					this.loadProduct('frontend/store/commodities/origin/category/' + id);
-				}
+				this.loadProduct('frontend/store/categories/parent/' + id);
+
+				//原价和特价的商品分类是一样的
+				// if(this.currentType === 'bargainPrice') {
+				// 	this.loadProduct('frontend/store/commodities/bargain/category/' + id);
+				// }else {
+				// 	this.loadProduct('frontend/store/commodities/origin/category/' + id);
+				// }
 			},
 			loadProductCatalog(id) {
 				let url = 'frontend/store/categories/parent/' + id;
@@ -93,6 +100,10 @@
 				.then((data) => {
 					console.log(data);
 					this.productCatalog = data.productCatalog;
+					// 刚进来默认是第一个分类商品
+					if(id === 0 && data.productCatalog[0].id) {
+						this.loadProduct('frontend/store/categories/parent/' + data.productCatalog[0].id);
+					}
 				})
 				.catch(response => {
 
@@ -102,7 +113,7 @@
 				this.$store.dispatch('classify/loadProduct', url)
 				.then((data) => {
 					console.log(data);
-					this.goodsList = data.goodsList;
+					this.goodsList = data.productCatalog;
 				})
 				.catch(response => {
 

@@ -69,8 +69,8 @@
 				storeImageUrl: '',
 				licenseImage_fd: null,
 				storeImage_fd: null,
-				latitude: 12,
-				longitude: 232,
+				latitude: -1,
+				longitude: -1,
 				formData: new FormData(),
 				is_login: this.$store.state.login.is_login.key
 			};
@@ -105,6 +105,15 @@
 			},
 			register() {
 				// console.log(this.licenseImage_fd);
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition((position) => {
+						this.latitude = position.coords.latitude;
+						this.longitude = position.coords.longitude;	
+					});
+				}else {
+					MessageBox('提示', '该浏览器不支持获取地理位置');
+				}
+
 				if(this.userName !== '' && this.phone !== '' && this.storeName !== '' && this.address !== '' && this.licenseImage_fd !== null && this.storeImage_fd !== null) {
 					this.formData.append('identity', this.userName);
 					this.formData.append('phone', this.phone);

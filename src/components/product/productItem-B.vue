@@ -13,7 +13,7 @@
 
 <script>
 	export default {
-		props: ['imgUrl', 'name', 'price'],
+		props: ['imgUrl', 'name', 'price', 'id'],
 		data() {
 			return {
 
@@ -21,6 +21,11 @@
 		},
 		methods: {
 			toGoodsList() {
+				let currentType = this.$store.state.classify.currentType;
+				this.$store.dispatch('goodsList/setGoodsList', {
+					currentType: currentType,
+					id: this.id
+				});
 				this.$router.push('/goodsList/' + this.name);
 			}
 		}

@@ -7,6 +7,7 @@
 			<p class="name">{{item.name}}</p>
 			<p class="info">
 				<span v-if="item.infos[0] !== ''">{{item.infos[0]}}</span>
+				<span v-else>查看详情</span>
 				<span v-if="item.infos[1] !== ''">{{item.infos[1]}}</span>
 			</p>
 			<p class="price">￥{{item.price}}</p>
@@ -19,7 +20,14 @@
 		props: ['item'],
 		methods: {
 			toGoodsPage() {
-				this.$router.push('/goodsPage');
+				this.$store.dispatch('goodsPage/setGoodsPage', this.item.id)
+				.then((data) => {
+					this.$router.push('/goodsPage/' + this.item.id);
+				})
+				.catch(response => {
+
+				});	
+				// this.$router.push('/goodsPage/' + this.item.id);
 			}
 		}
 	}

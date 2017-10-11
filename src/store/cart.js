@@ -5,73 +5,26 @@ export default {
 		allTotal: 0,
 		derate: 0,
 		selectAll: false,
-		shops: [{
-			id: 0,
-			shopName: 'xxx官方旗舰店',
-			// 这个后台不用提供
-			total: 0,
-			// 这个后台不用提供
-			selectedAll: false,
-			goods: [{
-				id: 0,
-				imgUrl: 'https://img.alicdn.com/imgextra/i3/725677994/TB2v828cYFlpuFjy0FgXXbRBVXa_!!725677994.jpg',
-				name: '天猫超市 可口可乐 碳酸饮料拉罐330ml*6连罐装 可口可乐 饮料',
-				infos: ['1kg', '满28包邮'], //最多两个其他信息，不够两个用空字符串
-				price: 100,
-				// 之前累计加入到购物车的数量
-				quantity: 1,
-				// 这个后台不用提供
-				selected: false
-			}, {
-				id: 1,
-				imgUrl: 'https://img.alicdn.com/imgextra/i3/725677994/TB2v828cYFlpuFjy0FgXXbRBVXa_!!725677994.jpg',
-				name: '天猫超市 可口可乐 碳酸饮料拉罐330ml*6连罐装 可口可乐 饮料',
-				infos: ['', ''], //最多两个其他信息，不够两个用空字符串
-				price: 100,
-				// 之前累计加入到购物车的数量
-				quantity: 1,
-				// 这个后台不用提供
-				selected: false
-			}, {
-				id: 2,
-				imgUrl: 'https://img.alicdn.com/imgextra/i3/725677994/TB2v828cYFlpuFjy0FgXXbRBVXa_!!725677994.jpg',
-				name: '天猫超市 可口可乐 碳酸饮料拉罐330ml*6连罐装 可口可乐 饮料',
-				infos: ['1kg', ''], //最多两个其他信息，不够两个用空字符串
-				price: 100,
-				// 之前累计加入到购物车的数量
-				quantity: 1,
-				// 这个后台不用提供
-				selected: false
-			}]
-		}, {
-			id: 1,
-			shopName: 'xxx官方旗舰店',
-			// 这个后台不用提供
-			total: 0,
-			// 这个后台不用提供
-			selectedAll: false,
-			goods: [{
-				id: 0,
-				imgUrl: 'https://img.alicdn.com/imgextra/i3/725677994/TB2v828cYFlpuFjy0FgXXbRBVXa_!!725677994.jpg',
-				name: '天猫超市 可口可乐 碳酸饮料拉罐330ml*6连罐装 可口可乐 饮料',
-				infos: ['1kg', '满28包邮'], //最多两个其他信息，不够两个用空字符串
-				price: 100,
-				// 之前累计加入到购物车的数量
-				quantity: 5,
-				// 这个后台不用提供
-				selected: false
-			}, {
-				id: 1,
-				imgUrl: 'https://img.alicdn.com/imgextra/i3/725677994/TB2v828cYFlpuFjy0FgXXbRBVXa_!!725677994.jpg',
-				name: '天猫超市 可口可乐 碳酸饮料拉罐330ml*6连罐装 可口可乐 饮料',
-				infos: ['1kg', '满28包邮'], //最多两个其他信息，不够两个用空字符串
-				price: 100,
-				// 之前累计加入到购物车的数量
-				quantity: 5,
-				// 这个后台不用提供
-				selected: false
-			}]
-		}]
+		shops: []
+		// shops: [{
+		// 	id: 0,
+		// 	shopName: 'xxx官方旗舰店',
+		// 	// 这个后台不用提供
+		// 	total: 0,
+		// 	// 这个后台不用提供
+		// 	selectedAll: false,
+		// 	goods: [{
+		// 		id: 0,
+		// 		imgUrl: 'https://img.alicdn.com/imgextra/i3/725677994/TB2v828cYFlpuFjy0FgXXbRBVXa_!!725677994.jpg',
+		// 		name: '天猫超市 可口可乐 碳酸饮料拉罐330ml*6连罐装 可口可乐 饮料',
+		// 		infos: ['1kg', '满28包邮'], //最多两个其他信息，不够两个用空字符串
+		// 		price: 100,
+		// 		// 之前累计加入到购物车的数量
+		// 		quantity: 1,
+		// 		// 这个后台不用提供
+		// 		selected: false
+		// 	}]
+		// }]
 	},
 
 	mutations: {
@@ -127,11 +80,29 @@ export default {
 				state.shops[index].total = computeShopTotal(state.shops[index]);
 			});
 			state.allTotal = computeShopsTotal(state.shops);
+		},
+		setCartData(state, data) {
+			state.shops = data.shops;
 		}
 	},
 
 	actions: {
+		setCartData(context) {
+			return new Promise((resolve, reject) => {
+				let option = {
+					url: 'frontend/store/carts',
+					type: 'GET',
+					success(result, status, xhr) {
+						if(result.status_code === 0) {
+							context.commit('setCartData', result.data);
+							resolve(result.data);
+						}
+					}
+				};
 
+				myAjax(option);
+			});
+		}
 	}
 
 }
@@ -167,7 +138,7 @@ function computeShopTotal(shop) {
 	let total = 0;
 	for(let i = 0, j = shop.goods.length; i < j; i++) {
 		if(shop.goods[i].selected) {
-			total += shop.goods[i].price * shop.goods[i].quantity;
+			total += shop.goods[i].current_price * shop.goods[i].quantity;
 		}
 	}
 	return total;
