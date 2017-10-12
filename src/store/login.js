@@ -36,6 +36,9 @@ export default {
 
 				myAjax(option);
 			});
+		},
+		setUserInfo(context, data) {
+			
 		}
 	}
 }

@@ -56,6 +56,8 @@
 	Vue.component(Field.name, Field);
 	Vue.use(Upload);
 	Vue.use(Button);
+	
+	let reg = /^1[0-9]{10}$/;
 
 	export default {
 		name: 'login',
@@ -83,6 +85,19 @@
 		// 		}
 		// 	}
 		// },
+		mounted() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(setLoaction);
+			}else {
+				MessageBox('提示', '该浏览器不支持获取地理位置');
+			}
+
+			function setLoaction(position) {
+				this.latitude = position.coords.latitude;
+				this.longitude = position.coords.longitude;	
+				// alert(this.latitude + ':' + this.longitude);
+			}
+		},
 		methods: {
 			handleLicenseSuccess(res, file) {
 				this.licenseImageUrl = URL.createObjectURL(file.raw);
@@ -104,17 +119,17 @@
 				// return false; // 返回false不会自动上传
 			},
 			register() {
-				// console.log(this.licenseImage_fd);
-				if (navigator.geolocation) {
-					navigator.geolocation.getCurrentPosition((position) => {
-						this.latitude = position.coords.latitude;
-						this.longitude = position.coords.longitude;	
-					});
-				}else {
-					MessageBox('提示', '该浏览器不支持获取地理位置');
-				}
-
 				if(this.userName !== '' && this.phone !== '' && this.storeName !== '' && this.address !== '' && this.licenseImage_fd !== null && this.storeImage_fd !== null) {
+					if(!reg.test(this.phone)) {
+						MessageBox('提示', '请填写正确的手机号码');
+						return;
+					}
+
+					if(this.latitude === -1 && this.longitude === -1) {
+						MessageBox('提示', '未能获取您的地理位置，请稍等或稍后重试！');
+						return;
+					}
+
 					this.formData.append('identity', this.userName);
 					this.formData.append('phone', this.phone);
 					this.formData.append('name', this.storeName);

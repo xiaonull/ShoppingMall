@@ -91,18 +91,18 @@ export default {
 						url: 'frontend/store/cart/add',
 						type: 'POST',
 						data: {
-							_token: result.data._token,
+							_token: data._token,
 							commodity_sku_id: data.id,
 							number: data.number
 						},
 						success(result, status, xhr) {
 							if(result.status_code === 0) {
 								console.log('success: ' + result.data);
-								resolve(0);
+								resolve();
 							}
 							if(result.status_code === 6) {
 								MessageBox('提示', result.message);
-								// reject();
+								reject(result.message);
 							}
 						}
 					};

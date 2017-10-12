@@ -7,6 +7,9 @@
 				</mt-swipe-item>
 			</mt-swipe>
 		</div>
+		<div class="backToGoodsList" @click="toGoodsListPage">
+			<i class="fa fa-chevron-circle-left"></i>
+		</div>
 		<div class="main">
 			<div class="name">
 				{{goods.name}}
@@ -24,10 +27,10 @@
 				<span>产品参数：{{currentSKU.specification}}</span>
 				<i class="fa fa-angle-right"></i>
 			</div>
-			<div class="goodsDetail card" @click="openGoodsDetail">
+			<!-- <div class="goodsDetail card" @click="openGoodsDetail">
 				<span>产品详情</span>
 				<i class="fa fa-angle-right"></i>
-			</div>
+			</div> -->
 			<div class="quantity card">
 				<span>购买数量</span>
 				<div class="btnGroup">
@@ -49,20 +52,17 @@
 				</div>
 			</mt-popup>
 		</div>
-		<div class="popup">
-			<mt-popup v-model="popupVisible2" position="right">
-				<div class="container" v-html="goods.introduction">
-					<!-- {{{goods.introduction}}} -->
-				</div>
-			</mt-popup>
+		<div class="introduction">
+			<h2 class="title">产品详情</h2>
+			<div v-html="goods.introduction"></div>
 		</div>
 		<div class="footer">
-			<div class="home" @click="toGoodsListPage">
+			<div class="home" @click="toClassify">
 				<i class="fa fa-home"></i>
 				<br>
 				<span class="text">商 城</span>
 			</div>
-			<div class="cart">
+			<div class="cart" @click="toCart">
 				<i class="fa fa-opencart"></i>
 				<br>
 				<span class="text">总价：<span class="price">￥{{goods.total.toFixed(2)}}</span></span>
@@ -71,6 +71,12 @@
 				<span class="text">加入购物车</span>
 			</div>
 		</div>
+		<!-- <div class="popup">
+			<mt-popup v-model="popupVisible2" position="right">
+				<div class="container" v-html="goods.introduction">
+				</div>
+			</mt-popup>
+		</div> -->
 	</section>
 </template>
 
@@ -119,6 +125,12 @@
 					this.$router.push('/goodsList/' + this.$store.state.goodsList.data.itemsName);
 				}
 			},
+			toClassify() {
+				this.$router.push('/index/classify/bargainPrice');
+			},
+			toCart() {
+				this.$router.push('/index/cart');
+			},
 			selectGoodsOptions() {
 				this.popupVisible = true;
 			},
@@ -137,19 +149,20 @@
 				}
 			},
 			addToCart() {
-				this.$store.dispatch('goodsPage/addToCart', {id: this.currentSKU.sku_id, number: this.counter})
-				.then((data) => {
-					consele.log(data);
-					if(data === 0) {
-						return;
-					}
-					consele.log(1);
-					let subTotal = this.goods.price * this.counter;
-					this.$store.commit('goodsPage/setTotal', subTotal);
-				})
-				.catch(response => {
+				getToken((result, status, xhr) => {
+					this.$store.dispatch('goodsPage/addToCart', {id: this.currentSKU.sku_id, number: this.counter, _token: result.data._token})
+					.then(
+						(data) => {
+							let subTotal = this.goods.price * this.counter;
+							this.$store.commit('goodsPage/setTotal', subTotal);
+						}, 
+						(err) => {
+							console.log('addToCartErr: ' + err);
+						})
+					.catch(response => {
 
-				});	
+					});	
+				});
 			},
 			changeCurrentSKU(sku) {
 				this.currentSKU = sku;
@@ -170,9 +183,17 @@
 			border-bottom: 2px solid #D8D5D5;
 			box-shadow: 10px 0 10px #888888;
 		}
+
+		.backToGoodsList {
+			position: absolute;
+			font-size: 1.5rem;
+			color: #bdbdbd;
+			top: 0.8rem;
+			left: .8rem;
+		}
 		
 		.main {
-			margin-bottom: 3rem;
+			margin-bottom: 0.5rem;
 
 			.name {
 				margin: 0.5rem;
@@ -234,6 +255,21 @@
 						margin-top: 0.3rem;
 					}
 				}
+			}
+		}
+
+		.introduction {
+			padding: 1rem 0 0.5rem 0;
+			margin-bottom: 3rem;
+			text-align: center;
+
+			.title {
+				font-size: 0.7rem;
+				font-weight: 500;
+				display: inline-block;
+				padding-bottom: 0.3rem;
+				border-bottom: 1px solid #D6D2D2;
+				margin-bottom: 0.5rem;
 			}
 		}
 

@@ -45,11 +45,25 @@
 					shopId: this.shopId,
 					goodsId: this.item.id
 				});
+				getToken((result, status, xhr) => {
+					this.$store.dispatch('cart/plus', {
+						_token: result.data._token,
+						commodity_sku_id: this.item.id,
+						number: 1
+					});
+				});
 			},
 			minus() {
 				this.$store.commit('cart/minus', {
 					shopId: this.shopId,
 					goodsId: this.item.id
+				});
+				getToken((result, status, xhr) => {
+					this.$store.dispatch('cart/minus', {
+						_token: result.data._token,
+						commodity_sku_id: this.item.id,
+						number: 1
+					});
 				});
 			}
 		}

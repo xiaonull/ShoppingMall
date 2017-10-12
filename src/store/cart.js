@@ -83,6 +83,9 @@ export default {
 		},
 		setCartData(state, data) {
 			state.shops = data.shops;
+		},
+		resetAllTotal(state) {
+			state.allTotal = 0;
 		}
 	},
 
@@ -97,6 +100,58 @@ export default {
 							context.commit('setCartData', result.data);
 							resolve(result.data);
 						}
+					}
+				};
+
+				myAjax(option);
+			});
+		},
+		sureOrder(context, data) {
+			return new Promise((resolve, reject) => {
+				let option = {
+					url: 'frontend/store/carts/order',
+					type: 'POST',
+					data: data,
+					success(result, status, xhr) {
+						if(result.status_code === 0) {
+							resolve(result.data);
+						}else {
+							reject();
+						}
+					}
+				};
+
+				myAjax(option);
+			});
+		},
+		plus(context, data) {
+			return new Promise((resolve, reject) => {
+				let option = {
+					url: 'frontend/store/cart/add',
+					type: 'POST',
+					data: data,
+					success(result, status, xhr) {
+						// if(result.status_code === 0) {
+						// 	context.commit('setCartData', result.data);
+						// 	resolve(result.data);
+						// }
+					}
+				};
+
+				myAjax(option);
+			});
+		},
+		minus(context, data) {
+			return new Promise((resolve, reject) => {
+				let option = {
+					url: 'frontend/store/cart/dec',
+					type: 'POST',
+					data: data,
+					success(result, status, xhr) {
+						// if(result.status_code === 0) {
+						// 	context.commit('setCartData', result.data);
+						// 	resolve(result.data);
+						// }
 					}
 				};
 
