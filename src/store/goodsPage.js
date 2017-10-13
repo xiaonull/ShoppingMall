@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { MessageBox } from 'mint-ui';
 
 export default {
@@ -85,30 +84,26 @@ export default {
 			});
 		},
 		addToCart(context, data) {
-			getToken((result, status, xhr) => {
-				return new Promise((resolve, reject) => {
-					let option = {
-						url: 'frontend/store/cart/add',
-						type: 'POST',
-						data: {
-							_token: data._token,
-							commodity_sku_id: data.id,
-							number: data.number
-						},
-						success(result, status, xhr) {
-							if(result.status_code === 0) {
-								console.log('success: ' + result.data);
-								resolve();
-							}
-							if(result.status_code === 6) {
-								MessageBox('提示', result.message);
-								reject(result.message);
-							}
+			return new Promise((resolve, reject) => {
+				let option = {
+					url: 'frontend/store/cart/add',
+					type: 'POST',
+					data: data,
+					success(result, status, xhr) {
+						if(result.status_code === 0) {
+							console.log('success: ' + result.data);
+							resolve();
 						}
-					};
+						if(result.status_code === 6) {
+							MessageBox('提示', result.message);
+							setTimeout(() => {
+								reject(result.message);
+							}, 3000);
+						}
+					}
+				};
 
-					myAjax(option);
-				});
+				myAjax(option);
 			});
 		}
 	}

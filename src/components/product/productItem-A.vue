@@ -23,7 +23,7 @@
 			toGoodsPage() {
 				this.$store.dispatch('goodsPage/setGoodsPage', this.id)
 				.then((data) => {
-					this.$router.push('/goodsPage/' + this.id);
+					this.$router.push('/goodsPage/' + this.id + '/fromHome');
 				})
 				.catch(response => {
 

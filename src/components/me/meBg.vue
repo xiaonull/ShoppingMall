@@ -1,10 +1,10 @@
 <template>
 	<section class="meBg">
-		<div class="member-info">
+		<!-- <div class="member-info">
 			<div class="user-avatar "><img class="img" src="~@/assets/bgImg/headImg.jpg"></div>
 			<div class="user-name"><span>SZY187TBNZ3959</span></div>
-		</div>
-		<div class="footer">
+		</div> -->
+		<!-- <div class="footer">
 			<div class="left">
 				<p class="money">0 元</p>
 				<p class="text">账户余额</p>
@@ -13,7 +13,7 @@
 				<p class="redPacketNum">0</p>
 				<p class="text">我的红包</p>
 			</div>
-		</div>
+		</div> -->
 	</section>
 </template>
 

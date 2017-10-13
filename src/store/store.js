@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios';
 import login from './login.js';
 import home from './home.js';
 import classify from './classify.js';
 import goodsList from './goodsList.js';
 import goodsPage from './goodsPage.js';
 import cart from './cart.js';
-import Option from './axiosOption.js';
+import me from './me.js';
+// import Option from './axiosOption.js';
 
 Vue.use(Vuex);
 
@@ -48,6 +48,12 @@ export default new Vuex.Store({
 			state: cart.state,
 			mutations: cart.mutations,
 			actions: cart.actions
+		},
+		me: {
+			namespaced: true,
+			state: me.state,
+			mutations: me.mutations,
+			actions: me.actions
 		}
 	}
 })

@@ -3,7 +3,7 @@
 		<div class="recommend">
 			<mt-swipe :auto="4000">
 				<mt-swipe-item v-for="img in carousel" :key="img.commodity_id">
-					<img class="img response_img" :src="img.img">
+					<img class="img response_img" :src="img.img" @click="toGoodsPage(img.commodity_id)">
 				</mt-swipe-item>
 			</mt-swipe>
 		</div>
@@ -49,6 +49,15 @@
 			}
 		},
 		methods: {
+			toGoodsPage(id) {
+				this.$store.dispatch('goodsPage/setGoodsPage', id)
+				.then((data) => {
+					this.$router.push('/goodsPage/' + id + '/fromHome');
+				})
+				.catch(response => {
+
+				});	
+			},
 			toBargainPrice() {
 				this.$router.push('/index/classify/bargainPrice');
 			},

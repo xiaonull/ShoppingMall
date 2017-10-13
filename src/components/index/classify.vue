@@ -119,12 +119,12 @@
 
 				});	
 			}
-		},
-		watch: {
-			currentType: function(val) {
-				// console.log(val);
-			}
 		}
+		// watch: {
+		// 	currentType: function(val) {
+		// 		// console.log(val);
+		// 	}
+		// }
 	}
 </script>
 

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { MessageBox } from 'mint-ui';
 
 export default {

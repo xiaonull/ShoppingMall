@@ -6,11 +6,12 @@ import Home from '@/components/index/home.vue'
 import Classify from '@/components/index/classify.vue'
 import Cart from '@/components/index/cart.vue'
 import Me from '@/components/index/me.vue'
-import OrderList from '@/components/me/orderList.vue'
+import OrderPage from '@/components/me/orderPage.vue'
 import LuckDrawPage from '@/components/me/luckDrawPage.vue'
 import GoodsPage from '@/components/product/goodsPage.vue'
 import goodsListPage from '@/components/product/goodsListPage.vue'
 import Balance from '@/components/cart/balance.vue'
+import Profile from '@/components/me/profile.vue'
 
 Vue.use(Router)
 
@@ -37,13 +38,16 @@ export default new Router({
 			component: Me
 		}]
 	}, {
-		path: '/orderList',
-		component: OrderList
+		path: '/orderPage',
+		component: OrderPage
 	}, {
 		path: '/luckDraw',
 		component: LuckDrawPage
 	}, {
 		path: '/goodsPage/:goodsId',
+		component: GoodsPage
+	}, {
+		path: '/goodsPage/:goodsId/:from',
 		component: GoodsPage
 	}, {
 		path: '/goodsList/:goodsName',
@@ -52,5 +56,8 @@ export default new Router({
 	}, {
 		path: '/balance',
 		component: Balance
+	}, {
+		path: '/profile',
+		component: Profile
 	}]
 })

@@ -16,7 +16,7 @@
 					<el-upload
 					ref="uploadLicenseImageUrl"
 					class="avatar-uploader"
-					action="https://jsonplaceholder.typicode.com/posts/"
+					action="no"
 					:show-file-list="false"
 					:on-success="handleLicenseSuccess"
 					:before-upload="beforeLicenseUpload">
@@ -33,7 +33,7 @@
 				<el-upload
 				ref="uploadStoreImage"
 				class="avatar-uploader"
-				action="https://jsonplaceholder.typicode.com/posts/"
+				action="no"
 				:show-file-list="false"
 				:on-success="handleStoreSuccess"
 				:before-upload="beforeStoreUpload">
@@ -100,23 +100,24 @@
 		},
 		methods: {
 			handleLicenseSuccess(res, file) {
-				this.licenseImageUrl = URL.createObjectURL(file.raw);
+				// this.licenseImageUrl = URL.createObjectURL(file.raw);
 			},
 			beforeLicenseUpload(file) {
-				// console.log(file);
 				this.licenseImage_fd = true;
 				this.formData.append('license_img', file, file.name);
+				this.licenseImageUrl = URL.createObjectURL(file);
 
-				// return false; // 返回false不会自动上传
+				return false; // 返回false不会自动上传
 			},
 			handleStoreSuccess(res, file) {
-				this.storeImageUrl = URL.createObjectURL(file.raw);
+				// this.storeImageUrl = URL.createObjectURL(file.raw);
 			},
 			beforeStoreUpload(file) {
 				this.storeImage_fd = true;
 				this.formData.append('store_img', file, file.name);
+				this.storeImageUrl = URL.createObjectURL(file);
 
-				// return false; // 返回false不会自动上传
+				return false; // 返回false不会自动上传
 			},
 			register() {
 				if(this.userName !== '' && this.phone !== '' && this.storeName !== '' && this.address !== '' && this.licenseImage_fd !== null && this.storeImage_fd !== null) {

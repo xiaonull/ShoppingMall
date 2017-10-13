@@ -20,7 +20,7 @@
 			</div>
 			<span class="line"></span>
 			<div class="address card">
-				<span>配送至：{{goods.address.area}}</span>
+				<span>配送至：{{address}}</span>
 				<i class="fa fa-angle-right"></i>
 			</div>
 			<div class="goodsOption card" @click="selectGoodsOptions">
@@ -99,6 +99,7 @@
 				skus: this.$store.state.goodsPage.skus,
 				currentSKU: {},
 				counter: 1
+				// address: ''
 			}
 		},
 		components: {
@@ -115,14 +116,29 @@
 			// .catch(response => {
 
 			// });	
+			if(this.$store.state.me.loadProfile === false) {
+				this.$store.dispatch('me/setProfile');
+			} 
+
 			this.currentSKU = this.skus[0];
+		},
+		computed: {
+			address: function() {
+				return this.$store.state.me.profile.address;
+			}
 		},
 		methods: {
 			toGoodsListPage() {
+				if(this.$route.params.from === 'fromHome') {
+					this.$router.push('/index/home');
+					return;
+				}
+
 				if(sessionStorage.itemsName && sessionStorage.itemsName !== '') {
 					this.$router.push('/goodsList/' + sessionStorage.itemsName );
 				}else {
-					this.$router.push('/goodsList/' + this.$store.state.goodsList.data.itemsName);
+					// this.$router.push('/goodsList/' + this.$store.state.goodsList.data.itemsName);
+					this.$router.push('/index/home');
 				}
 			},
 			toClassify() {
@@ -150,7 +166,7 @@
 			},
 			addToCart() {
 				getToken((result, status, xhr) => {
-					this.$store.dispatch('goodsPage/addToCart', {id: this.currentSKU.sku_id, number: this.counter, _token: result.data._token})
+					this.$store.dispatch('goodsPage/addToCart', {commodity_sku_id: this.currentSKU.sku_id, number: this.counter, _token: result.data._token})
 					.then(
 						(data) => {
 							let subTotal = this.goods.price * this.counter;

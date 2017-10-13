@@ -3,9 +3,9 @@
 		<div class="header">
 			<me-bg></me-bg>
 		</div>
-		<div class="user-order-box">
+		<!-- <div class="user-order-box">
 			<order></order>
-		</div>
+		</div> -->
 		<div class="main">
 			<ul class="list">
 				<!-- <li class="item">
@@ -13,14 +13,19 @@
 					<span class="text">我的收藏</span>
 					<i class="fa fa-angle-right"></i>
 				</li> -->
-				<li class="item">
+				<!-- <li class="item">
 					<i class="icon icon-address"></i>
 					<span class="text">收货地址</span>
 					<i class="fa fa-angle-right"></i>
+				</li> -->
+				<li class="item" @click="toOrderPage">
+					<i class="icon icon-checkOrder"></i>
+					<span class="text">查看订单</span>
+					<i class="fa fa-angle-right"></i>
 				</li>
-				<li class="item">
+				<li class="item" @click="toProfile">
 					<i class="icon icon-userInfo"></i>
-					<span class="text">个人信息</span>
+					<span class="text">门店信息</span>
 					<i class="fa fa-angle-right"></i>
 				</li>
 				<li class="item" @click="toLuckDrawPage">
@@ -28,16 +33,16 @@
 					<span class="text">抽奖活动</span>
 					<i class="fa fa-angle-right"></i>
 				</li>
-				<li class="item">
+				<!-- <li class="item">
 					<i class="icon icon-shopInfo"></i>
 					<span class="text">门店信息</span>
 					<i class="fa fa-angle-right"></i>
-				</li>
-				<li class="item" @click="logout">
+				</li> -->
+				<!-- <li class="item" @click="logout">
 					<i class="icon icon-logout"></i>
 					<span class="text">注销登录</span>
 					<i class="fa fa-angle-right"></i>
-				</li>
+				</li> -->
 			</ul>
 		</div>
 	</section>
@@ -56,8 +61,14 @@
 			toLuckDrawPage() {
 				this.$router.push('/luckDraw');
 			},
+			toProfile() {
+				this.$router.push('/profile');
+			},
+			toOrderPage() {
+				this.$router.push('/orderPage');
+			},
 			logout() {
-				window.location.assign('/index.html#/');
+				// window.location.assign('/index.html#/');
 			}
 		}
 	}
@@ -65,7 +76,11 @@
 
 <style scoped lang="less">
 	.me {
-		padding-bottom: 3rem;
+		/* padding-bottom: 3rem; */
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-color: #fff;
 
 		.header {
 			height: 10rem;
@@ -104,6 +119,10 @@
 					}
 					.icon-address {
 						background: url('~@/assets/btn_consignee_address.png') no-repeat -100% 50%;
+						background-size: 90%;
+					}
+					.icon-checkOrder {
+						background: url('~@/assets/btn_bargain.png') no-repeat -100% 50%;
 						background-size: 90%;
 					}
 					.icon-userInfo {

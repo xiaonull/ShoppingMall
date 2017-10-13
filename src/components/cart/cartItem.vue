@@ -19,6 +19,9 @@
 				</div>
 			</div>
 		</div>
+		<div class="delBtn" @click="delGoods">
+			<i class="fa fa-trash"></i>
+		</div>
 	</section>
 </template>
 
@@ -65,6 +68,9 @@
 						number: 1
 					});
 				});
+			},
+			delGoods() {
+				
 			}
 		}
 	}
@@ -75,6 +81,19 @@
 		height: 3.8rem;
 		overflow: hidden;
 		margin-bottom: 0.5rem;
+		position: relative;
+
+		.delBtn {
+			display: inline-block;
+			position: absolute;
+			top: 0;
+			right: 0;
+			font-size: 0.8rem;
+
+			.fa {
+				color: #848484;
+			}
+		}
 
 		.left {
 			line-height: 3.8rem;
@@ -98,13 +117,17 @@
 				height: 3.8rem;
 
 				.name {
+					width: 5rem;
 					height: 1.5rem;
 					font-size: 0.5rem;
 					line-height: 0.8rem;
 					overflow: hidden;
+					text-overflow:ellipsis;
+					white-space: nowrap;
 				}
 
 				.info {
+					height: 0.8rem;
 					font-size: 0.5rem;
 					color: #81838e;
 					margin-top: 0.1rem;

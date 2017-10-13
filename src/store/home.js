@@ -1,13 +1,13 @@
-import axios from 'axios';
-
 export default {
 	state: {
 		carousel : {
-			imgUrls:[{
-				brief: '1',
-				commodity_id: 1,
-				img: ''
-			}]
+			imgUrls:[
+			// {
+			// 	brief: '1',
+			// 	commodity_id: 1,
+			// 	img: ''
+			// }
+			]
 		},
 		// 从特价商品中取6个最新的特价商品
 		bargainPriceGoods: [{
