@@ -8,7 +8,7 @@
 		</div>
 		<div class="footer">
 			<div class="left">
-				<cart-btn @change="changeAllSelectInShops" :checked="selectAll"></cart-btn>
+				<cart-btn @change="changeAllSelectInShops" :checked="selectAll" origin="全选"></cart-btn>
 				<span class="selectAll">全选</span>
 			</div>
 			<div class="right" @click="balance">
@@ -35,7 +35,7 @@
 			CartBtn
 		},
 		data() {
-			console.log(this.$store.state.cart.allTotal);
+			// console.log(this.$store.state.cart.allTotal);
 			return {
 				popupVisible: false,
 				pickerValue: '',
@@ -51,7 +51,9 @@
 				return this.$store.state.cart.allTotal;
 			},
 			selectAll() {
-				console.log('1:' + this.$store.state.cart.selectAll);
+				// if(this.$store.state.cart.selectAll === false) {
+				// 	return 'false';
+				// }
 				return this.$store.state.cart.selectAll;
 			}
 		},
@@ -61,7 +63,7 @@
 
 			this.$store.dispatch('cart/setCartData')
 			.then((data) => {
-				console.log('ok: ' + data);
+				// console.log('ok: ' + data);
 				this.shops = data.shops;
 			})
 			.catch(response => {
@@ -73,7 +75,7 @@
 				// console.log(this.selectAll);
 				this.refreshshop();
 				this.$store.commit('cart/changeAllSelectInShops');
-				console.log('2:' + this.selectAll);
+				// console.log('2:' + this.selectAll);
 			},
 			refreshshop() {
 				this.shops = {};

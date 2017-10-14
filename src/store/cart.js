@@ -35,18 +35,23 @@ export default {
 					state.shops[index].selectedAll = false;
 					// console.log(state.selectAll);
 					state.selectAll = false;
-					console.log('3:' + state.selectAll);
+					// console.log('3:' + state.selectAll);
+				}else {
+					// 如果当前商品为已选择，则判断当前店铺是否为全选
+					let allGoods = state.shops[index].goods;
+					let allSelect = true;
+					for(let n = 0, m = allGoods.length; n < m; n++) {
+						if(allGoods[n].selected === false) {
+							allSelect = false;
+							break;
+						}
+					}
+					state.shops[index].selectedAll = allSelect;
+
+					// 判断当前购物车是否为全选
+					state.selectAll = is_AllSelected(state.shops);
 				}
 
-				// 如果当前商品为已选择，则判断当前店铺是否为全选
-				let allGoods = state.shops[index].goods;
-				let allSelect = true;
-				for(let n = 0, m = allGoods.length; n < m; n++) {
-					if(allGoods[n].selected === false) {
-						allSelect = false;
-					}
-				}
-				state.shops[index].selectedAll = allSelect;
 			});
 			findShop(state, data, (index) => {
 				state.shops[index].total = computeShopTotal(state.shops[index]);
@@ -59,19 +64,30 @@ export default {
 				for(let i = 0, j = state.shops[index].goods.length; i < j; i++) {
 					state.shops[index].goods[i].selected = state.shops[index].selectedAll;
 				}
+				if(state.shops[index].selectedAll === false) {
+					state.selectAll = false;
+				}else {
+					// 判断当前购物车是否为全选
+					state.selectAll = is_AllSelected(state.shops);
+				}
 				state.shops[index].total = computeShopTotal(state.shops[index]);
 			});
 			state.allTotal = computeShopsTotal(state.shops);
 		},
 		changeAllSelectInShops(state, data) {
 			state.selectAll = !state.selectAll;
-			console.log('4:' + state.selectAll)
+			// console.log('4:' + state.selectAll)
 			for(let i = 0, j = state.shops.length; i < j; i++) {
 				state.shops[i].selectedAll = state.selectAll;
 				for(let i2 = 0, j2 = state.shops[i].goods.length; i2 < j2; i2++) {
 					state.shops[i].goods[i2].selected = state.selectAll;
 				}
 			}
+			// 更新店铺总价和购物车总价
+			for(let i = 0, j = state.shops.length; i < j; i++) {
+				state.shops[i].total = computeShopTotal(state.shops[i]);
+			}
+			state.allTotal = computeShopsTotal(state.shops);
 		},
 		plus(state, data) {
 			findGoods(state, data, (index, i) => {
@@ -216,4 +232,13 @@ function computeShopsTotal(shops) {
 	}
 	// console.log(total);
 	return total;
+}
+
+function is_AllSelected(shops) {
+	for(let i = 0, j = shops.length; i < j; i++) {
+		if(shops[i].selectedAll === false) {
+			return false;
+		}
+	}
+	return true;
 }

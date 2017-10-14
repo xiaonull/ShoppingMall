@@ -6,7 +6,7 @@
 
 <script>
 	export default {
-		props: ['checked'],
+		props: ['checked', 'origin'],
 		data() {
 			return {
 				checked_ : false
@@ -16,12 +16,26 @@
 			if(this.checked === true || this.checked === false) {
 				this.checked_ = this.checked;
 			}
+			// if(this.checked === 'false') {
+			// 	this.checked_ = false;
+			// }
 		},
 		updated() {
-			// alert(this.checked)
-			// if(this.checked === true || this.checked === false) {
-			// 	this.checked_ = this.checked;
+			if(this.checked === true || this.checked === false) {
+				this.checked_ = this.checked;
+			}
+			// if(this.checked === 'false') {
+			// 	this.checked_ = false;
 			// }
+		},
+		watch: {
+			checked: function(val) {
+				// console.log(this.origin + ': ' + val);
+				this.checked_ = val;
+				// if(val === 'false') {
+				// 	this.checked_ = false;
+				// }
+			}
 		},
 		methods: {
 			change() {
