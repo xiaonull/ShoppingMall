@@ -8,8 +8,8 @@
 		</div>
 		<div class="footer">
 			<div class="left">
-				<!-- <cart-btn @change="changeAllSelectInShops" :checked="selectAll"></cart-btn>
-				<span class="selectAll">全选</span> -->
+				<cart-btn @change="changeAllSelectInShops" :checked="selectAll"></cart-btn>
+				<span class="selectAll">全选</span>
 			</div>
 			<div class="right" @click="balance">
 				结 算
