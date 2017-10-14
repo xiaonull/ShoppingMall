@@ -112,6 +112,9 @@ export default {
 		},
 		resetAllTotal(state) {
 			state.allTotal = 0;
+		},
+		resetSelectAll(state) {
+			state.selectAll = false;
 		}
 	},
 

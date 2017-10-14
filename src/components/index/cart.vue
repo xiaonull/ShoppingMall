@@ -60,6 +60,7 @@
 		mounted() {
 			this.shops = {};
 			this.$store.commit('cart/resetAllTotal');
+			this.$store.commit('cart/resetSelectAll');
 
 			this.$store.dispatch('cart/setCartData')
 			.then((data) => {
@@ -69,6 +70,7 @@
 			.catch(response => {
 
 			});	
+			
 		},
 		methods: {
 			changeAllSelectInShops() {
