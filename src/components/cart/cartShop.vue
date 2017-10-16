@@ -6,7 +6,7 @@
 			<div class="deleteBtn"></div>
 		</div>
 		<div class="main">
-			<cart-item v-for="goods in shop.goods" :key="goods.id" :item="goods" :shopId="shop.id" @refreshshop="refreshshop"></cart-item>
+			<cart-item v-for="goods in shop.goods" :key="goods.id" :item="goods" :shopId="shop.id" @refreshshop="refreshshop" @resetCart="resetCart"></cart-item>
 		</div>
 		<div class="bottom">
 			<p class="total">本店总计：￥<span class="money">{{shop.total.toFixed(2)}}</span></p>
@@ -38,6 +38,9 @@
 			},
 			refreshshop() {
 				this.$emit('refreshshop');
+			},
+			resetCart() {
+				this.$emit('resetCart');
 			}
 		}
 	}

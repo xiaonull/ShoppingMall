@@ -121,6 +121,8 @@
 			} 
 
 			this.currentSKU = this.skus[0];
+
+			this.$store.commit('goodsPage/resetTotal');
 		},
 		computed: {
 			address: function() {
@@ -131,6 +133,11 @@
 			toGoodsListPage() {
 				if(this.$route.params.from === 'fromHome') {
 					this.$router.push('/index/home');
+					return;
+				}
+
+				if(this.$route.params.from === 'fromCart') {
+					this.$router.push('/index/cart');
 					return;
 				}
 

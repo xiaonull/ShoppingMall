@@ -160,10 +160,9 @@ export default {
 					type: 'POST',
 					data: data,
 					success(result, status, xhr) {
-						// if(result.status_code === 0) {
-						// 	context.commit('setCartData', result.data);
-						// 	resolve(result.data);
-						// }
+						if(result.status_code === 0) {
+							resolve(result.data);
+						}
 					}
 				};
 
@@ -177,10 +176,25 @@ export default {
 					type: 'POST',
 					data: data,
 					success(result, status, xhr) {
-						// if(result.status_code === 0) {
-						// 	context.commit('setCartData', result.data);
-						// 	resolve(result.data);
-						// }
+						if(result.status_code === 0) {
+							resolve(result.data);
+						}
+					}
+				};
+
+				myAjax(option);
+			});
+		},
+		delGoods(context, data) {
+			return new Promise((resolve, reject) => {
+				let option = {
+					url: 'frontend/store/cart/dec',
+					type: 'POST',
+					data: data,
+					success(result, status, xhr) {
+						if(result.status_code === 0) {
+							resolve(result.data);
+						}
 					}
 				};
 

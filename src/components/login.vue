@@ -4,6 +4,7 @@
 			<mt-header fixed title="门店入驻"></mt-header>
 		</div>
 		<div class="main">
+			<div class="prompt">请在门店附近进行注册，以获取准确的门店位置</div>
 			<mt-field label="用户名" placeholder="请输入用户名" v-model="userName"></mt-field>
 			<mt-field label="手机号" placeholder="请输入手机号" type="tel" v-model="phone"></mt-field>
 			<mt-field label="门店名" placeholder="请输入门店名" v-model="storeName"></mt-field>
@@ -86,17 +87,33 @@
 		// 	}
 		// },
 		mounted() {
-			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(setLoaction);
-			}else {
-				MessageBox('提示', '该浏览器不支持获取地理位置');
-			}
+			// if (navigator.geolocation) {
+			// 	navigator.geolocation.getCurrentPosition(setLoaction);
+			// }else {
+			// 	MessageBox('提示', '该浏览器不支持获取地理位置');
+			// }
 
-			function setLoaction(position) {
-				this.latitude = position.coords.latitude;
-				this.longitude = position.coords.longitude;	
-				// alert(this.latitude + ':' + this.longitude);
-			}
+			// function setLoaction(position) {
+			// 	this.latitude = position.coords.latitude;
+			// 	this.longitude = position.coords.longitude;	
+			// 	// alert(this.latitude + ':' + this.longitude);
+			// }
+			
+			// 百度api获取地理位置
+			let self = this;
+			var geolocation = new BMap.Geolocation();
+			geolocation.getCurrentPosition(function(r){
+				if(this.getStatus() == BMAP_STATUS_SUCCESS){
+					// alert('您的位置：'+r.point.lng+','+r.point.lat);
+					self.latitude = r.point.lat;
+					self.longitude = r.point.lng;	
+				}
+				else {
+					// alert('failed'+this.getStatus());
+					MessageBox('提示', '未能获取您的地理位置，请稍等或稍后重试！');
+				}        
+			},{enableHighAccuracy: true});
+
 		},
 		methods: {
 			handleLicenseSuccess(res, file) {
@@ -165,7 +182,15 @@
 		background-color: #FAF5F5;
 		
 		.main {
-			padding: 3rem 10px 0 10px;
+			padding: 2rem 10px 0 10px;
+
+			.prompt {
+				height: 3rem;
+				line-height: 3rem;
+				color: #EB3737;
+				font-size: 0.6rem;
+				text-align: center;
+			}
 			
 			.upload {
 				overflow: hidden;

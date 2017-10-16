@@ -59,6 +59,9 @@ export default {
 				state.goods.stock = data.skus[0].stock;
 			}
 			state.skus = data.skus;
+		},
+		resetTotal(state) {
+			state.goods.total = 0;
 		}
 	},
 

@@ -20,6 +20,23 @@ export default {
 					success(result, status, xhr) {
 						if(result.status_code === 0) {
 							context.commit('setProfile', result.data);
+							resolve(result);
+						}
+					}
+				};
+
+				myAjax(option);
+			});
+		},
+		modifyProfile(context, data) {
+			return new Promise((resolve, reject) => {
+				let option = {
+					url: 'frontend/store/profile/update',
+					type: 'POST',
+					data: data,
+					success(result, status, xhr) {
+						if(result.status_code === 0) {
+							resolve(result);
 						}
 					}
 				};

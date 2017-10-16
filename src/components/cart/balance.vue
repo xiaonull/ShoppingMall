@@ -45,6 +45,7 @@
 				startPicker: '',
 				endPicker: '',
 				comment: '',
+				state: false
 			}
 		},
 		mounted() {
@@ -62,6 +63,10 @@
 				this.$refs.endPicker.open();
 			},
 			sureOrder() {
+				if(this.state === true) {
+					return;
+				}
+
 				const shops = this.$store.state.cart.shops;
 				let order = [];
 				for(let i = 0, j = shops.length; i < j; i++) {
@@ -89,10 +94,11 @@
 						this.$store.dispatch('cart/sureOrder', data)
 						.then(
 							(data) => {
+								this.state = true;
 								MessageBox('提示', '您已成功下单！');
 								setTimeout(() => {
-									this.$router.push('/orderList');
-								}, 2000);
+									this.$router.push('/orderPage');
+								}, 4000);
 							}, 
 							(error) => {
 								MessageBox('提示', '下单失败！');

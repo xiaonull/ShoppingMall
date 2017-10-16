@@ -4,7 +4,7 @@
 			<mt-header fixed title="购物车"></mt-header>
 		</div>
 		<div class="main">
-			<cart-shop v-for="shop in shops" :key="shop.id" :shop="shop" @refreshshop="refreshshop"></cart-shop>
+			<cart-shop v-for="shop in shops" :key="shop.id" :shop="shop" @refreshshop="refreshshop" @resetCart="resetCart"></cart-shop>
 		</div>
 		<div class="footer">
 			<div class="left">
@@ -58,18 +58,20 @@
 			}
 		},
 		mounted() {
-			this.shops = {};
-			this.$store.commit('cart/resetAllTotal');
-			this.$store.commit('cart/resetSelectAll');
+			// this.shops = {};
+			// this.$store.commit('cart/resetAllTotal');
+			// this.$store.commit('cart/resetSelectAll');
 
-			this.$store.dispatch('cart/setCartData')
-			.then((data) => {
-				// console.log('ok: ' + data);
-				this.shops = data.shops;
-			})
-			.catch(response => {
+			// this.$store.dispatch('cart/setCartData')
+			// .then((data) => {
+			// 	// console.log('ok: ' + data);
+			// 	this.shops = data.shops;
+			// })
+			// .catch(response => {
 
-			});	
+			// });	
+
+			this.resetCart();
 			
 		},
 		methods: {
@@ -92,6 +94,19 @@
 					MessageBox('提示', '您还没选择需要购买的商品');
 				}
 			},
+			resetCart() {
+				this.shops = {};
+				this.$store.commit('cart/resetAllTotal');
+				this.$store.commit('cart/resetSelectAll');
+
+				this.$store.dispatch('cart/setCartData')
+				.then((data) => {
+					this.shops = data.shops;
+				})
+				.catch(response => {
+
+				});	
+			}
 		}
 	}
 </script>

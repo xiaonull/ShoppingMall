@@ -12,6 +12,7 @@ import GoodsPage from '@/components/product/goodsPage.vue'
 import goodsListPage from '@/components/product/goodsListPage.vue'
 import Balance from '@/components/cart/balance.vue'
 import Profile from '@/components/me/profile.vue'
+import OrderDetails from '@/components/me/orderDetails.vue'
 
 Vue.use(Router)
 
@@ -59,5 +60,8 @@ export default new Router({
 	}, {
 		path: '/profile',
 		component: Profile
+	}, {
+		path: '/orderDetails',
+		component: OrderDetails
 	}]
 })

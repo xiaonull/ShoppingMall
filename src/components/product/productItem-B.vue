@@ -38,7 +38,7 @@
 		margin-bottom: 0.2rem;
 
 		.imgContainer {
-			height: 6.5rem;
+			height: 5.5rem;
 		}
 
 		.info {

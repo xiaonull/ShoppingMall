@@ -44,6 +44,7 @@
 				line-height: 2rem;
 				text-align: center;
 				border-bottom: 1px solid #E8E6E6;
+				overflow: hidden;
 			}
 
 			.active:before {

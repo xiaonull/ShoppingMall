@@ -29,29 +29,40 @@
 	export default {
 		data() {
 			return {
-				// userName: this.$store.state.me.profile.identity || '',
-				// phone: this.$store.state.me.profile.phone || '',
-				// storeName: this.$store.state.me.profile.name || '',
-				// address: this.$store.state.me.profile.address || '',
+				userName: this.$store.state.me.profile.identity || '',
+				phone: this.$store.state.me.profile.phone || '',
+				storeName: this.$store.state.me.profile.name || '',
+				address: this.$store.state.me.profile.address || '',
 			};
 		},
 		computed: {
-			userName: function() {
-				return this.$store.state.me.profile.identity || '';
-			},
-			phone: function() {
-				return this.$store.state.me.profile.phone || '';
-			},
-			storeName: function() {
-				return this.$store.state.me.profile.name || '';
-			},
-			address: function() {
-				return this.$store.state.me.profile.address || '';
-			}
+			// c-userName: function() {
+			// 	return this.$store.state.me.profile.identity || '';
+			// },
+			// c-phone: function() {
+			// 	return this.$store.state.me.profile.phone || '';
+			// },
+			// c-storeName: function() {
+			// 	return this.$store.state.me.profile.name || '';
+			// },
+			// c-address: function() {
+			// 	return this.$store.state.me.profile.address || '';
+			// }
 		},
 		mounted() {
 			if(this.$store.state.me.loadProfile === false) {
-				this.$store.dispatch('me/setProfile');
+				this.$store.dispatch('me/setProfile')
+				.then((response) => {
+					setTimeout(() => {
+						this.userName = this.$store.state.me.profile.identity || '';
+						this.phone = this.$store.state.me.profile.phone || '';
+						this.storeName = this.$store.state.me.profile.name || '';
+						this.address = this.$store.state.me.profile.address || '';
+					}, 50);
+				})
+				.catch(response => {
+
+				});	
 			}
 		},
 		methods: {
@@ -62,17 +73,20 @@
 						return;
 					}
 
-					// getToken((result, status, xhr) => {
-					// 	this.$store.dispatch('login/register', this.formData)
-					// 	.then((response) => {
-					// 		setTimeout(() => {
-					// 			this.$router.push('/index/home');
-					// 		}, 3000);
-					// 	})
-					// 	.catch(response => {
+					getToken((result, status, xhr) => {
+						this.$store.dispatch('me/modifyProfile', {
+							_token: result.data._token,
+							phone: this.phone,
+							address: this.address
+						})
+						.then((response) => {
+							MessageBox('提示', '修改信息成功！');
+							this.$store.dispatch('me/setProfile');
+						})
+						.catch(response => {
 
-					// 	});			
-					// });
+						});			
+					});
 				}else {
 					MessageBox('提示', '请填写完整信息');
 				}

@@ -5,7 +5,7 @@
 		</div>
 		<div class="right">
 			<div class="subLeft">
-				<img class="img response_img" :src="item.imgUrl">
+				<img class="img response_img" :src="item.imgUrl" @click="toGoodsPage">
 			</div>
 			<div class="subRight">
 				<p class="name">{{item.name}}</p>
@@ -35,6 +35,11 @@
 			CartBtn,
 			CountBtnGroup
 		},
+		data() {
+			return {
+				quantity: this.item.quantity
+			}
+		},
 		methods: {
 			change() {
 				this.$emit('refreshshop');
@@ -43,34 +48,75 @@
 					goodsId: this.item.id
 				});
 			},
+			toGoodsPage() {
+				this.$store.dispatch('goodsPage/setGoodsPage', this.item.commodity_id)
+				.then((data) => {
+					this.$router.push('/goodsPage/' + this.item.commodity_id + '/fromCart');
+				})
+				.catch(response => {
+
+				});	
+			},
 			plus() {
-				this.$store.commit('cart/plus', {
-					shopId: this.shopId,
-					goodsId: this.item.id
-				});
+				// this.$store.commit('cart/plus', {
+				// 	shopId: this.shopId,
+				// 	goodsId: this.item.id
+				// });
 				getToken((result, status, xhr) => {
 					this.$store.dispatch('cart/plus', {
 						_token: result.data._token,
 						commodity_sku_id: this.item.id,
 						number: 1
-					});
+					})
+					.then((data) => {
+						this.$store.commit('cart/plus', {
+							shopId: this.shopId,
+							goodsId: this.item.id
+						});
+						this.quantity++;
+					})
+					.catch(response => {
+
+					});	
 				});
 			},
 			minus() {
-				this.$store.commit('cart/minus', {
-					shopId: this.shopId,
-					goodsId: this.item.id
-				});
+				// this.$store.commit('cart/minus', {
+				// 	shopId: this.shopId,
+				// 	goodsId: this.item.id
+				// });
 				getToken((result, status, xhr) => {
 					this.$store.dispatch('cart/minus', {
 						_token: result.data._token,
 						commodity_sku_id: this.item.id,
 						number: 1
-					});
+					})
+					.then((data) => {
+						this.$store.commit('cart/minus', {
+							shopId: this.shopId,
+							goodsId: this.item.id
+						});
+						this.quantity--;
+					})
+					.catch(response => {
+
+					});	
 				});
 			},
 			delGoods() {
-				
+				getToken((result, status, xhr) => {
+					this.$store.dispatch('cart/delGoods', {
+						_token: result.data._token,
+						commodity_sku_id: this.item.id,
+						number: this.quantity
+					})
+					.then((data) => {
+						this.$emit('resetCart');
+					})
+					.catch(response => {
+
+					});	
+				});
 			}
 		}
 	}

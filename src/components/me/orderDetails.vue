@@ -1,52 +1,16 @@
 <template>
-	<section class="orderPage">
+	<section class="orderDetails">
 		<div class="header">
-			<mt-header fixed title="订单列表">
-				<router-link to="/index/me" slot="left">
+			<mt-header fixed title="订单详情">
+				<router-link to="/orderPage" slot="left">
 					<mt-button icon="back">返回</mt-button>
 				</router-link>
 			</mt-header>
 		</div>
 		<div class="main">
-			<div class="order">
-				<div class="header">
-					<span class="shopName">XXX旗舰店</span>
-					<span class="orderState">待发货</span>
-				</div>
-				<div class="goods">
-					<div class="left">
-						<img src="~@/assets/1.jpg" class="img">
-					</div>
-					<div class="right">
-						<p class="goodsName">名字名字名字名字名字名字名字名字</p>
-						<p class="price">￥100.00</p>
-						<p class="quantity">x 2</p>
-					</div>
-				</div>
-				<div class="goods">
-					<div class="left">
-						<img src="~@/assets/1.jpg" class="img">
-					</div>
-					<div class="right">
-						<p class="goodsName">名字名字名字名字名字名字名字名字</p>
-						<p class="price">￥100.00</p>
-						<p class="quantity">x 2</p>
-					</div>
-				</div>
-				<div class="goods">
-					<div class="left">
-						<img src="~@/assets/1.jpg" class="img">
-					</div>
-					<div class="right">
-						<p class="goodsName">名字名字名字名字名字名字名字名字</p>
-						<p class="price">￥100.00</p>
-						<p class="quantity">x 2</p>
-					</div>
-				</div>
-				<div class="footer">
-					<span class="total">合计：￥600.00</span>
-					<div class="complain">投诉</div>
-				</div>
+			<div class="info">
+				<p class="receiver">收货人： 某某某 <span class="phone">10000000000</span></p>
+				<p class="address">收货地址:  广东省广州市天河区五山街道华南农业大学华山区17栋宿舍</p>
 			</div>
 			<div class="order">
 				<div class="header">
@@ -101,12 +65,12 @@
 </script>
 
 <style scoped lang="less">
-	.orderPage {
+	.orderDetails {
 		position: absolute;
 		width: 100%;
 		height: 100%;
 		background-color: #fff;
-		
+
 		.header {
 			/* height: 40px; */
 		}
@@ -115,6 +79,26 @@
 			margin-top: 50px;
 			background-color: #fff;
 			font-size: 0.58rem;
+
+			.info {
+				padding: 0.5rem;
+				margin-bottom: 0.8rem;
+				border-top: 1px solid #E2DDDD;
+				border-bottom: 1px solid #E2DDDD;
+
+				.receiver {
+					height: 1.2rem;
+					line-height: 1.2rem;
+
+					.phone {
+						float: right;
+					}
+				}
+
+				.address {
+					line-height: 1rem;
+				}
+			}
 
 			.order {
 				margin-bottom: 0.5rem;
@@ -214,3 +198,4 @@
 		}
 	}
 </style>
+
