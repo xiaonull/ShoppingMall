@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/login.vue'
 import Index from '@/components/index.vue'
+import Salesman from '@/components/salesman.vue'
 import Home from '@/components/index/home.vue'
 import Classify from '@/components/index/classify.vue'
 import Cart from '@/components/index/cart.vue'
@@ -13,6 +14,9 @@ import goodsListPage from '@/components/product/goodsListPage.vue'
 import Balance from '@/components/cart/balance.vue'
 import Profile from '@/components/me/profile.vue'
 import OrderDetails from '@/components/me/orderDetails.vue'
+import Code from '@/components/salesman/code.vue'
+import MyShops from '@/components/salesman/myShops.vue'
+import NearbyShops from '@/components/salesman/nearbyShops.vue'
 
 Vue.use(Router)
 
@@ -63,5 +67,18 @@ export default new Router({
 	}, {
 		path: '/orderDetails',
 		component: OrderDetails
+	}, {
+		path: '/salesman',
+		component: Salesman,
+		children: [{
+			path: 'code',
+			component: Code
+		}, {
+			path: 'myShops',
+			component: MyShops
+		}, {
+			path: 'nearbyShops',
+			component: NearbyShops
+		}]
 	}]
 })

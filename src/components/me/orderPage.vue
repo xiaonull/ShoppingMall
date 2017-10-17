@@ -8,83 +8,23 @@
 			</mt-header>
 		</div>
 		<div class="main">
-			<div class="order">
+			<div class="order" v-for="order in orders" :key="order.id">
 				<div class="header">
-					<span class="shopName">XXX旗舰店</span>
-					<span class="orderState">待发货</span>
+					<span class="shopName">{{order.dealer}}</span>
+					<span class="orderState">{{order.transportation}}</span>
 				</div>
-				<div class="goods">
+				<div class="goods" v-for="goods in order.goods" :key="">
 					<div class="left">
-						<img src="~@/assets/1.jpg" class="img">
+						<img :src="goods.img" class="img">
 					</div>
 					<div class="right">
-						<p class="goodsName">名字名字名字名字名字名字名字名字</p>
-						<p class="price">￥100.00</p>
-						<p class="quantity">x 2</p>
-					</div>
-				</div>
-				<div class="goods">
-					<div class="left">
-						<img src="~@/assets/1.jpg" class="img">
-					</div>
-					<div class="right">
-						<p class="goodsName">名字名字名字名字名字名字名字名字</p>
-						<p class="price">￥100.00</p>
-						<p class="quantity">x 2</p>
-					</div>
-				</div>
-				<div class="goods">
-					<div class="left">
-						<img src="~@/assets/1.jpg" class="img">
-					</div>
-					<div class="right">
-						<p class="goodsName">名字名字名字名字名字名字名字名字</p>
-						<p class="price">￥100.00</p>
-						<p class="quantity">x 2</p>
+						<p class="goodsName">{{goods.name}}</p>
+						<p class="price">￥{{goods.price}}</p>
+						<p class="quantity">x {{goods.number}}</p>
 					</div>
 				</div>
 				<div class="footer">
-					<span class="total">合计：￥600.00</span>
-					<div class="complain">投诉</div>
-				</div>
-			</div>
-			<div class="order">
-				<div class="header">
-					<span class="shopName">XXX旗舰店</span>
-					<span class="orderState">待发货</span>
-				</div>
-				<div class="goods">
-					<div class="left">
-						<img src="~@/assets/1.jpg" class="img">
-					</div>
-					<div class="right">
-						<p class="goodsName">名字名字名字名字名字名字名字名字</p>
-						<p class="price">￥100.00</p>
-						<p class="quantity">x 2</p>
-					</div>
-				</div>
-				<div class="goods">
-					<div class="left">
-						<img src="~@/assets/1.jpg" class="img">
-					</div>
-					<div class="right">
-						<p class="goodsName">名字名字名字名字名字名字名字名字</p>
-						<p class="price">￥100.00</p>
-						<p class="quantity">x 2</p>
-					</div>
-				</div>
-				<div class="goods">
-					<div class="left">
-						<img src="~@/assets/1.jpg" class="img">
-					</div>
-					<div class="right">
-						<p class="goodsName">名字名字名字名字名字名字名字名字</p>
-						<p class="price">￥100.00</p>
-						<p class="quantity">x 2</p>
-					</div>
-				</div>
-				<div class="footer">
-					<span class="total">合计：￥600.00</span>
+					<span class="total">合计：￥{{order.fee}}</span>
 					<div class="complain">投诉</div>
 				</div>
 			</div>
@@ -96,7 +36,25 @@
 	import { Header, Button } from 'mint-ui';
 
 	export default {
+		data() {
+			return {
+				orders: []
+			}
+		},
+		mounted() {
+			let option = {
+				url: 'frontend/store/orders',
+				type: 'GET',
+				success(result, status, xhr) {
+					if(result.status_code === 0) {
+						this.orders = [];
+						this.orders = result.data;
+					}
+				}
+			};
 
+			myAjax(option);
+		}
 	}
 </script>
 

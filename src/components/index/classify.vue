@@ -5,14 +5,14 @@
 				<mt-button type="danger" slot="right" @click.native="changeType"><i class="fa fa-exchange fa-xx"></i></mt-button>
 			</mt-header>
 		</div>
-		<div class="classify-top">
+		<!-- <div class="classify-top">
 			<div class="topLeft">
 				<mt-search v-model="searchContent"></mt-search>
 			</div>
 			<div class="topRight">
 				<mt-button class="searchBtn">搜索</mt-button>
 			</div>
-		</div>
+		</div> -->
 		<div class="classify-left">
 			<Product-Catalog :items="productCatalog" @currentCatalog="currentCatalog"></Product-Catalog>
 		</div>
@@ -186,7 +186,7 @@
 			display: inline-block;
 			float: left;
 			width: 4.1rem;
-			margin-top: 90px;
+			margin-top: 50px;
 			background-color: #fff;
 			overflow-y: scroll;
 			position: fixed;
@@ -196,7 +196,7 @@
 		.classify-right {
 			float: right;
 			margin-left: 4.1rem;
-			margin-top: 90px;
+			margin-top: 50px;
 			padding-bottom: 70px;
 			background-color: #fff;
 			padding-left: 5px;

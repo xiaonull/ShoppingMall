@@ -48,7 +48,11 @@
 
 <style scoped lang="less">
 	.goodsListPage {
+		position: absolute;
+		width: 100%;
+		height: 100%;
 		background-color: #fff;
+		
 		.main {
 			margin-top: 55px;
 		}
