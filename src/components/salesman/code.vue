@@ -10,7 +10,16 @@
 	export default {
 		data() {
 			return {
-				imgUrl: ''
+			}
+		},
+		computed: {
+			imgUrl() {
+				return this.$store.state.salesman.code_Img;
+			}
+		},
+		mounted() {
+			if(this.$store.state.salesman.code_Img === '') {
+				this.$store.dispatch('salesman/setCode');
 			}
 		}
 	}

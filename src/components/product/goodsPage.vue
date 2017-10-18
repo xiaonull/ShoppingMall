@@ -141,6 +141,11 @@
 					return;
 				}
 
+				if(this.$route.params.from === 'fromOrderDetails') {
+					this.$router.push('/orderPage');
+					return;
+				}
+
 				if(sessionStorage.itemsName && sessionStorage.itemsName !== '') {
 					this.$router.push('/goodsList/' + sessionStorage.itemsName );
 				}else {

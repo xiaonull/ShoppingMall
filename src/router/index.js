@@ -8,6 +8,7 @@ import Classify from '@/components/index/classify.vue'
 import Cart from '@/components/index/cart.vue'
 import Me from '@/components/index/me.vue'
 import OrderPage from '@/components/me/orderPage.vue'
+import ComplainPage from '@/components/me/complainPage.vue'
 import LuckDrawPage from '@/components/me/luckDrawPage.vue'
 import GoodsPage from '@/components/product/goodsPage.vue'
 import goodsListPage from '@/components/product/goodsListPage.vue'
@@ -15,7 +16,7 @@ import Balance from '@/components/cart/balance.vue'
 import Profile from '@/components/me/profile.vue'
 import OrderDetails from '@/components/me/orderDetails.vue'
 import Code from '@/components/salesman/code.vue'
-import MyShops from '@/components/salesman/myShops.vue'
+import BindWeChat from '@/components/salesman/bindWeChat.vue'
 import NearbyShops from '@/components/salesman/nearbyShops.vue'
 
 Vue.use(Router)
@@ -65,8 +66,11 @@ export default new Router({
 		path: '/profile',
 		component: Profile
 	}, {
-		path: '/orderDetails',
+		path: '/orderDetails/:id',
 		component: OrderDetails
+	}, {
+		path: '/complainPage/:id',
+		component: ComplainPage
 	}, {
 		path: '/salesman',
 		component: Salesman,
@@ -74,8 +78,8 @@ export default new Router({
 			path: 'code',
 			component: Code
 		}, {
-			path: 'myShops',
-			component: MyShops
+			path: 'bindWeChat',
+			component: BindWeChat
 		}, {
 			path: 'nearbyShops',
 			component: NearbyShops

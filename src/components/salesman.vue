@@ -7,9 +7,9 @@
 				<i class="fa fa-camera fa-xx"></i>
 				二维码
 			</mt-tab-item>
-			<mt-tab-item id="myShopsTab" class="tab" @click.native="changePage('myShopsTab')">
-				<i class="fa fa-home fa-1x"></i>
-				开发的门店
+			<mt-tab-item id="bindWeChatTab" class="tab" @click.native="changePage('bindWeChatTab')">
+				<i class="fa fa-wechat fa-1x"></i>
+				绑定微信
 			</mt-tab-item>
 			<mt-tab-item id="nearbyShopsTab" class="tab" @click.native="changePage('nearbyShopsTab')">
 				<i class="fa fa-wifi fa-xx"></i>
@@ -39,8 +39,8 @@
 			let path = this.$route.path;
 			if(path === '/salesman/code') {
 				this.selected = 'codeTab';
-			}else if(path === '/salesman/myShops') {
-				this.selected = 'myShopsTab';
+			}else if(path === '/salesman/bindWeChat') {
+				this.selected = 'bindWeChatTab';
 			}else if(path === '/salesman/nearbyShops') {
 				this.selected = 'nearbyShopsTab';
 			}
@@ -49,8 +49,8 @@
 			changePage(index) {
 				if(index === 'codeTab') {
 					this.$router.push('/salesman/code');
-				}else if(index === 'myShopsTab') {
-					this.$router.push('/salesman/myShops');
+				}else if(index === 'bindWeChatTab') {
+					this.$router.push('/salesman/bindWeChat');
 				}else if(index === 'nearbyShopsTab') {
 					this.$router.push('/salesman/nearbyShops');
 				}

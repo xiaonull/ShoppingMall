@@ -98,7 +98,7 @@
 								MessageBox('提示', '您已成功下单！');
 								setTimeout(() => {
 									this.$router.push('/orderPage');
-								}, 4000);
+								}, 2000);
 							}, 
 							(error) => {
 								MessageBox('提示', '下单失败！');

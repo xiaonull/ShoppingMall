@@ -7,6 +7,7 @@ import goodsList from './goodsList.js';
 import goodsPage from './goodsPage.js';
 import cart from './cart.js';
 import me from './me.js';
+import salesman from './salesman.js';
 // import Option from './axiosOption.js';
 
 Vue.use(Vuex);
@@ -54,13 +55,19 @@ export default new Vuex.Store({
 			state: me.state,
 			mutations: me.mutations,
 			actions: me.actions
+		},
+		salesman: {
+			namespaced: true,
+			state: salesman.state,
+			mutations: salesman.mutations,
+			actions: salesman.actions
 		}
 	}
 })
 
 window.myAjax = function(option) {
 	let domainName = 'http://yuandianzixun.com/';
-	return;
+	// return;
 
 	$.ajax({
 		url: domainName + option.url,
