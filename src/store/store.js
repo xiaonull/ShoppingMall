@@ -79,7 +79,7 @@ window.myAjax = function(option) {
 		cache: option.cache,
 		success: function(result, status, xhr) {
 			if(result.status_code === 5) {
-				window.location.assign('/index.html#/');
+				window.location.assign('/index.html#/login');
 			}
 
 			option.success(result, status, xhr);  	

@@ -6,7 +6,7 @@
 					<span class="shopName">{{shop.name}}</span>
 					<span class="phone">{{shop.phone}}</span>
 				</p>
-				<p class="address">{{shop.address}}</p>
+				<p class="address">地址：{{shop.address}}</p>
 				<p class="container">
 					<span class="distance">距离：{{shop.distance}}米</span>
 					<span class="exploited" v-if="shop.exploited">已被开发</span>

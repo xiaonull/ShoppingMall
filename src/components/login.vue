@@ -1,10 +1,15 @@
 <template>
 	<section class="login">
 		<div class="header">
-			<mt-header fixed title="门店入驻"></mt-header>
+			<mt-header fixed title="门店入驻">
+				<router-link to="/index/home" slot="left">
+					<mt-button icon="back">返回商城</mt-button>
+				</router-link>
+			</mt-header>
 		</div>
 		<div class="main">
-			<div class="prompt">请在门店附近进行注册，以获取准确的门店位置</div>
+			<div class="prompt1">请在门店附近进行注册，以获取准确的门店位置</div>
+			<div class="prompt2">注册成功后需要审核，审核成功将会自动登录</div>
 			<mt-field label="用户名" placeholder="请输入用户名" v-model="userName"></mt-field>
 			<mt-field label="手机号" placeholder="请输入手机号" type="tel" v-model="phone"></mt-field>
 			<mt-field label="门店名" placeholder="请输入门店名" v-model="storeName"></mt-field>
@@ -78,27 +83,7 @@
 				is_login: this.$store.state.login.is_login.key
 			};
 		},
-		// watch: {
-		// 	is_login: function(val, oldVal) {
-		// 		console.log('is_login' + val);
-		// 		if(val === true) {
-		// 			this.$router.push('/index/home');
-		// 		}
-		// 	}
-		// },
 		mounted() {
-			// if (navigator.geolocation) {
-			// 	navigator.geolocation.getCurrentPosition(setLoaction);
-			// }else {
-			// 	MessageBox('提示', '该浏览器不支持获取地理位置');
-			// }
-
-			// function setLoaction(position) {
-			// 	this.latitude = position.coords.latitude;
-			// 	this.longitude = position.coords.longitude;	
-			// 	// alert(this.latitude + ':' + this.longitude);
-			// }
-			
 			// 百度api获取地理位置
 			let self = this;
 			var geolocation = new BMap.Geolocation();
@@ -158,9 +143,7 @@
 						this.formData.append('_token', result.data._token);		
 						this.$store.dispatch('login/register', this.formData)
 						.then((response) => {
-							setTimeout(() => {
-								this.$router.push('/index/home');
-							}, 3000);
+							
 						})
 						.catch(response => {
 
@@ -184,12 +167,21 @@
 		.main {
 			padding: 2rem 10px 0 10px;
 
-			.prompt {
-				height: 3rem;
-				line-height: 3rem;
+			.prompt1 {
+				height: 1.4rem;
+				line-height: 1.4rem;
 				color: #EB3737;
 				font-size: 0.6rem;
 				text-align: center;
+			}
+
+			.prompt2 {
+				height: 1.4rem;
+				line-height: 1.4rem;
+				color: #EB3737;
+				font-size: 0.6rem;
+				text-align: center;
+				margin-bottom: 1rem;
 			}
 			
 			.upload {

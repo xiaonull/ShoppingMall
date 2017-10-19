@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Judge from '@/components/judge.vue'
 import Login from '@/components/login.vue'
 import Index from '@/components/index.vue'
 import Salesman from '@/components/salesman.vue'
@@ -24,6 +25,10 @@ Vue.use(Router)
 export default new Router({
 	routes: [{
 		path: '/',
+		name: 'Judge',
+		component: Judge
+	}, {
+		path: '/login',
 		name: 'login',
 		component: Login
 	},	{

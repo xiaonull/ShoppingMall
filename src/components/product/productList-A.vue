@@ -2,7 +2,7 @@
 	<section class="productListA">
 		<el-row :gutter="3">
 			<el-col :xs="12" :sm="12" :md="8" :lg="8" v-for="item in items" :key="item.id">
-				<productItemA :imgUrl="item.imgUrl" :name="item.name" :price="item.price" :id="item.id"></productItemA>
+				<productItemA :imgUrl="item.imgUrl" :name="item.name" :price="item.price" :currentPrice="item.currentPrice" :id="item.id"></productItemA>
 			</el-col>
 		</el-row>
 	</section>

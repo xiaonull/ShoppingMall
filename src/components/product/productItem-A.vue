@@ -6,14 +6,14 @@
 		</div>
 		<div class="info">
 			<div class="nameContainer"><span class="name">{{name}}</span></div>
-			<div class="priceContainer"><span class="price">￥{{price}}</span></div>
+			<div class="priceContainer"><span class="price"><span class="cu" v-if="currentPrice < price">促</span>￥{{currentPrice}}</span></div>
 		</div>
 	</section>
 </template>
 
 <script>
 	export default {
-		props: ['imgUrl', 'name', 'price', 'id'],
+		props: ['imgUrl', 'name', 'price', 'currentPrice', 'id'],
 		data() {
 			return {
 
@@ -66,6 +66,17 @@
 				float: right;
 				color: #F72E2E;
 				padding-right: 0.2rem;
+
+				.cu {
+					display: inline-block;
+					width: 0.7rem;
+					height: 0.7rem;
+					line-height: 0.7rem;
+					text-align: center;
+					font-size: 0.5rem;
+					background-color: #C31313;
+					color: #fff;
+				}
 
 			}
 		}

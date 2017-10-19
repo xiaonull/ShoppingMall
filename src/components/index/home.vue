@@ -1,11 +1,33 @@
 <template>
 	<section class="home">
 		<div class="recommend">
-			<mt-swipe :auto="4000">
-				<mt-swipe-item v-for="img in carousel" :key="img.commodity_id">
-					<img class="img response_img" :src="img.img" @click="toGoodsPage(img.commodity_id)">
-				</mt-swipe-item>
-			</mt-swipe>
+			<div class="recommendContainer">
+				<mt-swipe :auto="4000">
+					<mt-swipe-item v-for="img in carousel" :key="img.commodity_id">
+						<img class="img response_img" :src="img.img" @click="toGoodsPage(img.commodity_id)">
+					</mt-swipe-item>
+				</mt-swipe>
+			</div>
+		</div>
+		<div class="function">
+			<div class="box">
+				<div class="icon">
+					<img src="~@/assets/home/icon1.png" class="img" @click="toBargainPrice">
+				</div>
+				<p class="text">特卖商品</p>
+			</div>
+			<div class="box">
+				<div class="icon">
+					<img src="~@/assets/home/icon2.png" class="img" @click="toLuckDraw">
+				</div>
+				<p class="text">抽奖活动</p>
+			</div>
+			<div class="box">
+				<div class="icon">
+					<img src="~@/assets/home/icon3.png" class="img" @click="toOriginalPrice">
+				</div>
+				<p class="text">推广商品</p>
+			</div>
 		</div>
 		<div class="bargainPrice">
 			<div class="price-nav">
@@ -20,7 +42,7 @@
 		<div class="originalPrice">
 			<div class="price-nav">
 				<span class="bar"></span>
-				<span class="title">原价商品</span>
+				<span class="title">推广商品</span>
 				<span class="more" @click="toOriginalPrice">更多...</span>
 			</div>
 			<div class="content">
@@ -50,6 +72,10 @@
 		},
 		methods: {
 			toGoodsPage(id) {
+				if(id === 0) {
+					return;
+				}
+
 				this.$store.dispatch('goodsPage/setGoodsPage', id)
 				.then((data) => {
 					this.$router.push('/goodsPage/' + id + '/fromHome');
@@ -63,6 +89,9 @@
 			},
 			toOriginalPrice() {
 				this.$router.push('/index/classify/originalPrice');
+			},
+			toLuckDraw() {
+				this.$router.push('/luckDraw');
 			}
 		},
 		mounted() {
@@ -92,8 +121,57 @@
 
 		.recommend {
 			height: 8rem;
-			background-color: #D6D0D0;
-			text-align: center;
+			overflow: hidden;
+			background-color: #fff;
+
+			.recommendContainer {
+				width: 200%;
+				position: relative;
+				z-index: 1;
+				left: -50%;
+				height: 8rem;
+				text-align: center;
+				border-radius: 0 0 50% 50%;
+				background-color: #DDD9D9;
+				overflow: hidden;
+
+				.img {
+					width: 50%;
+					height: 100%;
+				}
+			}
+		}
+
+		.function {
+			width:100%;
+			height:3.4rem;
+			display:flex;
+			background-color: #fff;
+			border-bottom: 1px solid #D3D3D3;
+
+			.box {
+				flex: 1;
+				text-align: center;
+
+				.icon {
+					display: inline-block;
+					width: 1.8rem;
+					height: 1.8rem;
+					margin-top: 0.4rem;
+					background-color: #7D59E2;
+					border-radius: 50%;
+
+					.img {
+						width: 100%;
+						height: 100%;
+						border-radius: 50%;
+					}
+				}
+
+				.text {
+					font-size: 0.5rem;
+				}
+			}
 		}
 
 		.price-nav {
@@ -119,8 +197,9 @@
 			.more {
 				float: right;
 				position: relative;
-				top: 0.8rem;
+				top: 0.78rem;
 				margin-right: 0.5rem;
+				font-size: 0.6rem;
 			}
 		}
 

@@ -83,6 +83,8 @@ export default {
 							// resolve(result.data);
 							console.log('success: ' + result.data.goodsList);
 							context.commit('setGoodsList', result.data.goodsList);
+
+							resolve(result.data.goodsList);
 						}
 					}
 				};

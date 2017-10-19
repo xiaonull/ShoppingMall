@@ -12,6 +12,8 @@
 </template>
 
 <script>
+	import { Toast } from 'mint-ui';
+
 	export default {
 		props: ['imgUrl', 'name', 'price', 'id'],
 		data() {
@@ -25,8 +27,17 @@
 				this.$store.dispatch('goodsList/setGoodsList', {
 					currentType: currentType,
 					id: this.id
-				});
-				this.$router.push('/goodsList/' + this.name);
+				})
+				.then((goodsList) => {
+					if(goodsList.length === 0) {
+						Toast('暂时还没有该分类商品');
+					}else {
+						this.$router.push('/goodsList/' + this.name);
+					}
+				})
+				.catch(response => {
+
+				});	
 			}
 		}
 	}

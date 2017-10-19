@@ -51,7 +51,7 @@
 		mounted() {
 			let path = this.$route.path;
 			if(path === '/index/classify/originalPrice') {
-				this.currentTitle = '原价商品';
+				this.currentTitle = '推广商品';
 				this.currentType = 'originalPrice';
 				
 				// this.loadProduct('frontend/store/commodities/origin/category/0');
@@ -68,7 +68,7 @@
 		methods: {
 			changeType() {
 				if(this.currentType === 'bargainPrice') {
-					this.currentTitle = '原价商品';
+					this.currentTitle = '推广商品';
 					this.currentType = 'originalPrice';
 					this.$router.push('/index/classify/originalPrice');
 					// 原价和特价的商品分类是一样的
