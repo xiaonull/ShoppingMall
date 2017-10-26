@@ -8,12 +8,12 @@
 			</mt-header>
 		</div>
 		<div class="main">
-			<div class="prompt1">请在门店附近进行注册，以获取准确的门店位置</div>
+			<!-- <div class="prompt1">请在门店附近进行注册，以获取准确的门店位置</div> -->
 			<div class="prompt2">注册成功后需要审核，审核成功将会自动登录</div>
 			<mt-field label="用户名" placeholder="请输入用户名" v-model="userName"></mt-field>
 			<mt-field label="手机号" placeholder="请输入手机号" type="tel" v-model="phone"></mt-field>
 			<mt-field label="门店名" placeholder="请输入门店名" v-model="storeName"></mt-field>
-			<mt-field label="地 址" placeholder="请输入详细地址" v-model="address"></mt-field>
+			<mt-field label="地 址" placeholder="省-市-区-街道-门号" v-model="address"></mt-field>
 			<div class="upload">
 				<div class="text">
 					请上传营业执照
@@ -85,19 +85,19 @@
 		},
 		mounted() {
 			// 百度api获取地理位置
-			let self = this;
-			var geolocation = new BMap.Geolocation();
-			geolocation.getCurrentPosition(function(r){
-				if(this.getStatus() == BMAP_STATUS_SUCCESS){
-					// alert('您的位置：'+r.point.lng+','+r.point.lat);
-					self.latitude = r.point.lat;
-					self.longitude = r.point.lng;	
-				}
-				else {
-					// alert('failed'+this.getStatus());
-					MessageBox('提示', '未能获取您的地理位置，请稍等或稍后重试！');
-				}        
-			},{enableHighAccuracy: true});
+			// let self = this;
+			// var geolocation = new BMap.Geolocation();
+			// geolocation.getCurrentPosition(function(r){
+			// 	if(this.getStatus() == BMAP_STATUS_SUCCESS){
+			// 		// alert('您的位置：'+r.point.lng+','+r.point.lat);
+			// 		self.latitude = r.point.lat;
+			// 		self.longitude = r.point.lng;	
+			// 	}
+			// 	else {
+			// 		// alert('failed'+this.getStatus());
+			// 		MessageBox('提示', '未能获取您的地理位置，请稍等或稍后重试！');
+			// 	}        
+			// },{enableHighAccuracy: true});
 
 		},
 		methods: {
@@ -128,27 +128,48 @@
 						return;
 					}
 
-					if(this.latitude === -1 && this.longitude === -1) {
-						MessageBox('提示', '未能获取您的地理位置，请稍等或稍后重试！');
-						return;
-					}
+					// 根据地址获取经纬度
+					var myGeo = new BMap.Geocoder();
+					new Promise((resolve, reject) => {
+						myGeo.getPoint(this.address, (point) => {
+							if (point) {
+								this.latitude = point.lat;
+								this.longitude = point.lng;
+								resolve();
+							}else{
+								reject();
+							}
+						}, '');
+					})
+					.then((data) => {
+						if(this.latitude === -1 && this.longitude === -1) {
+							MessageBox('提示', '未能获取您的地理位置，请稍等或稍后重试！');
+							return;
+						}
+						// console.log(this.latitude + ':' + this.longitude);
+						this.formData.append('identity', this.userName);
+						this.formData.append('phone', this.phone);
+						this.formData.append('name', this.storeName);
+						this.formData.append('address', this.address);
+						this.formData.append('latitude', this.latitude);
+						this.formData.append('longitude', this.longitude);
+						getToken((result, status, xhr) => {
+							this.formData.append('_token', result.data._token);		
+							this.$store.dispatch('login/register', this.formData)
+							.then((response) => {
 
-					this.formData.append('identity', this.userName);
-					this.formData.append('phone', this.phone);
-					this.formData.append('name', this.storeName);
-					this.formData.append('address', this.address);
-					this.formData.append('latitude', this.latitude);
-					this.formData.append('longitude', this.longitude);
-					getToken((result, status, xhr) => {
-						this.formData.append('_token', result.data._token);		
-						this.$store.dispatch('login/register', this.formData)
-						.then((response) => {
-							
-						})
-						.catch(response => {
+							})
+							.catch(response => {
 
-						});			
-					});
+							});			
+						});
+					}, (err) => {
+						MessageBox('提示', '未能获取您的地理位置，请输入正确地址！');
+						console.log(err);
+					})
+					.catch((err) => {
+						console.log(err);
+					});					
 				}else {
 					MessageBox('提示', '请填写完整信息');
 				}

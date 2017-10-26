@@ -12,7 +12,7 @@ export default {
 		// 从特价商品中取6个最新的特价商品
 		bargainPriceGoods: [{
 			id: 0,
-			name: '可口可乐可口可乐可口可乐可口可乐',
+			name: '可口可乐可口可乐可口可乐可口可乐可口可乐',
 			price: '13.8',
 			imgUrl: ''
 		}],

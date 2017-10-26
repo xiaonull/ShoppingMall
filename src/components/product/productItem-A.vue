@@ -5,7 +5,7 @@
 			<img class="img response_img" :src="imgUrl">
 		</div>
 		<div class="info">
-			<div class="nameContainer"><span class="name">{{name}}</span></div>
+			<div class="nameContainer"><span class="name">{{name.length < 17 ? name : name.substring(0, 17) + '...'}}</span></div>
 			<div class="priceContainer"><span class="price"><span class="cu" v-if="currentPrice < price">促</span>￥{{currentPrice}}</span></div>
 		</div>
 	</section>
@@ -44,28 +44,27 @@
 		}
 
 		.info {
+			position: relative;
 			width: 100%;
-			height: 1.5rem;
+			height: 2.2rem;
 			font-size: 0.6rem;
 			border-bottom: 1px solid #F6F4F4;
 
 			.nameContainer {
 				display: inline-block;
-				width: 4.5rem;
+				width: 100%;
 				height: 1.5rem;
-				line-height: 1.5rem;
-				overflow: hidden;
-				text-overflow:ellipsis;
-				white-space: nowrap;
+				line-height: 1rem;
 				padding-left: 0.2rem;
+				margin-top: 0.1rem;
 			}
 
 			.priceContainer {
-				height: 1.5rem;
-				line-height: 1.5rem;
-				float: right;
 				color: #F72E2E;
 				padding-right: 0.2rem;
+				position: absolute;
+				bottom: 0.2rem;
+				right: 0.2rem;
 
 				.cu {
 					display: inline-block;

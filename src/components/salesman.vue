@@ -11,6 +11,10 @@
 				<i class="fa fa-wechat fa-1x"></i>
 				绑定微信
 			</mt-tab-item>
+			<mt-tab-item id="myDevelopmentTab" class="tab" @click.native="changePage('myDevelopmentTab')">
+				<i class="fa fa-home fa-1x"></i>
+				我的开发
+			</mt-tab-item>
 			<mt-tab-item id="nearbyShopsTab" class="tab" @click.native="changePage('nearbyShopsTab')">
 				<i class="fa fa-wifi fa-xx"></i>
 				附近的门店
@@ -43,6 +47,8 @@
 				this.selected = 'bindWeChatTab';
 			}else if(path === '/salesman/nearbyShops') {
 				this.selected = 'nearbyShopsTab';
+			}else if(path === '/salesman/myDevelopment') {
+				this.selected = 'myDevelopmentTab';
 			}
 		},
 		methods: {
@@ -53,6 +59,8 @@
 					this.$router.push('/salesman/bindWeChat');
 				}else if(index === 'nearbyShopsTab') {
 					this.$router.push('/salesman/nearbyShops');
+				}else if(index === 'myDevelopmentTab') {
+					this.$router.push('/salesman/myDevelopment');
 				}
 			}
 		}

@@ -19,6 +19,7 @@ import OrderDetails from '@/components/me/orderDetails.vue'
 import Code from '@/components/salesman/code.vue'
 import BindWeChat from '@/components/salesman/bindWeChat.vue'
 import NearbyShops from '@/components/salesman/nearbyShops.vue'
+import MyDevelopment from '@/components/salesman/myDevelopment.vue'
 
 Vue.use(Router)
 
@@ -88,6 +89,9 @@ export default new Router({
 		}, {
 			path: 'nearbyShops',
 			component: NearbyShops
+		}, {
+			path: 'myDevelopment',
+			component: MyDevelopment
 		}]
 	}]
 })
