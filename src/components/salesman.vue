@@ -1,6 +1,8 @@
 <template>
 	<section class="salesman">
-		<mt-header fixed title="业务员中心"></mt-header>
+		<mt-header fixed title="业务员中心">
+			<mt-button slot="right" class="orderList" v-show="selected === 'myDevelopmentTab'" @click="toOrderList">订单列表</mt-button>
+		</mt-header>
 		<router-view></router-view>
 		<mt-tabbar v-model="selected" :fixed="fixed">
 			<mt-tab-item id="codeTab" class="tab" @click.native="changePage('codeTab')">
@@ -62,6 +64,9 @@
 				}else if(index === 'myDevelopmentTab') {
 					this.$router.push('/salesman/myDevelopment');
 				}
+			},
+			toOrderList() {
+				this.$router.push('/salesman_orderList');
 			}
 		}
 		
@@ -75,6 +80,15 @@
 		width: 100%;
 		height: 100%;
 		background-color: #fff;
+
+		.orderList {
+			color: #fff;
+			border: 1px solid #fff;
+			height: 27px;
+			padding-left: 5px;
+			padding-right: 5px;
+			border-radius: 20px;
+		}
 
 		.mint-tabbar {
 			height: 2.3rem;
