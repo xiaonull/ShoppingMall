@@ -1,6 +1,8 @@
 export default {
 	state: {
 		currentType: '',
+		currentLevel: 2,
+		currentLevelTitle: '',
 		productCatalog: [{
 			text: '水果蔬菜11',
 			id: 0
@@ -16,6 +18,13 @@ export default {
 	mutations: {
 		setCurrentType(state, currentType) {
 			state.currentType = currentType;
+		},
+		setCurrentLevel(state, currentLevel) {
+			console.log('setCurrentLevel: ' + currentLevel);
+			state.currentLevel = currentLevel;
+		},
+		setCurrentLevelTitle(state, currentLevelTitle) {
+			state.currentLevelTitle = currentLevelTitle;
 		}
 	},
 

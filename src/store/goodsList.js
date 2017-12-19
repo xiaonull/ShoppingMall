@@ -69,11 +69,11 @@ export default {
 		setGoodsList(context, data) {
 			let url = '';
 			if(data.currentType === 'originalPrice') {
-				url = 'frontend/store/commodities/origin/category/';
+				url = 'frontend/store/categories/parent/' + data.id + '?type=origin';
 			}else if(data.currentType === 'bargainPrice') {
-				url = 'frontend/store/commodities/bargain/category/';
+				url = 'frontend/store/categories/parent/' + data.id + '?type=bargain';
 			}
-			url += data.id;
+
 			return new Promise((resolve, reject) => {
 				let option = {
 					url: url,

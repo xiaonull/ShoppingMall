@@ -23,21 +23,30 @@
 		},
 		methods: {
 			toGoodsList() {
-				let currentType = this.$store.state.classify.currentType;
-				this.$store.dispatch('goodsList/setGoodsList', {
-					currentType: currentType,
-					id: this.id
-				})
-				.then((goodsList) => {
-					if(goodsList.length === 0) {
-						Toast('暂时还没有该分类商品');
-					}else {
-						this.$router.push('/goodsList/' + this.name);
-					}
-				})
-				.catch(response => {
+				let level = this.$store.state.classify.currentLevel;
+				console.log('level:' + level);
+				if(level === 2) {
+					this.$emit('loadLevelThreeProduct', {
+						id: this.id,
+						name: this.name
+					});
+				}else if(level === 3) {
+					let currentType = this.$store.state.classify.currentType;
+					this.$store.dispatch('goodsList/setGoodsList', {
+						currentType: currentType,
+						id: this.id
+					})
+					.then((goodsList) => {
+						if(goodsList.length === 0) {
+							Toast('暂时还没有该分类商品');
+						}else {
+							this.$router.push('/goodsList/' + this.name);
+						}
+					})
+					.catch(response => {
 
-				});	
+					});	
+				}
 			}
 		}
 	}
@@ -60,7 +69,7 @@
 
 			.nameContainer {
 				display: inline-block;
-				width: 3rem;
+				width: 100%;
 				height: 1.5rem;
 				line-height: 1.5rem;
 				overflow: hidden;
